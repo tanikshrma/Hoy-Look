@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ChevronDown, ChevronUp, Sparkles, Check } from 'lucide-react';
+import { ArrowLeft, ChevronDown, ChevronUp, Sparkles, Check, Camera } from 'lucide-react';
 import hoyLogo from '../../assets/HOY Logo.avif';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, UserOnboardingProfile } from '../../context/AuthContext';
+
+interface ProfileDetailsStepProps {
+  onGenerate: (profile: UserOnboardingProfile) => void;
+  onChangePhoto: () => void;
+  onBack: () => void;
+}
 
 const BODY_SHAPES = [
   { id: 'Rectangle', name: 'Rectangle', desc: 'Straight waist with balanced shoulders & hips' },
@@ -9,7 +15,7 @@ const BODY_SHAPES = [
   { id: 'Pear', name: 'Pear', desc: 'Hips wider than bust & shoulders' },
   { id: 'Inverted Triangle', name: 'Inverted Triangle', desc: 'Broad shoulders with narrower waist & hips' },
   { id: 'Athletic', name: 'Athletic', desc: 'Muscular build with balanced proportions' },
-];
+] as const;
 
 const SKIN_TONES = [
   { label: 'Fair', color: '#F7E2D6' },
@@ -28,7 +34,7 @@ const COLOR_OPTIONS = [
   { id: 'Bold', label: 'Bold Statement Tones', swatches: ['#991B1B', '#1E3A8A', '#065F46'] },
 ];
 
-export const ProfileDetailsStep = ({
+export const ProfileDetailsStep: React.FC<ProfileDetailsStepProps> = ({
   onGenerate,
   onChangePhoto,
   onBack,
@@ -36,24 +42,24 @@ export const ProfileDetailsStep = ({
   const { userProfile, updateUserProfile } = useAuth();
 
   // Form Fields State
-  const [gender, setGender] = useState(userProfile.gender || 'Female');
-  const [heightUnit, setHeightUnit] = useState(userProfile.heightUnit || 'cm');
-  const [heightCm, setHeightCm] = useState(userProfile.heightCm || 163);
-  const [age, setAge] = useState(userProfile.age || 22);
-  const [bodyShape, setBodyShape] = useState(userProfile.bodyShape || 'Rectangle');
-  const [skinToneIndex, setSkinToneIndex] = useState(userProfile.skinToneIndex ?? 1);
+  const [gender, setGender] = useState<'Male' | 'Female' | 'Other'>(userProfile.gender || 'Female');
+  const [heightUnit, setHeightUnit] = useState<'cm' | 'ft/in'>(userProfile.heightUnit || 'cm');
+  const [heightCm, setHeightCm] = useState<number>(userProfile.heightCm || 163);
+  const [age, setAge] = useState<number>(userProfile.age || 22);
+  const [bodyShape, setBodyShape] = useState<UserOnboardingProfile['bodyShape']>(userProfile.bodyShape || 'Rectangle');
+  const [skinToneIndex, setSkinToneIndex] = useState<number>(userProfile.skinToneIndex ?? 1);
 
-  const [topSize, setTopSize] = useState(userProfile.topSize || 'S');
-  const [bottomSize, setBottomSize] = useState(userProfile.bottomSize || 'M');
-  const [shoeSize, setShoeSize] = useState(userProfile.shoeSize || 'EU 38');
+  const [topSize, setTopSize] = useState<string>(userProfile.topSize || 'S');
+  const [bottomSize, setBottomSize] = useState<string>(userProfile.bottomSize || 'M');
+  const [shoeSize, setShoeSize] = useState<string>(userProfile.shoeSize || 'EU 38');
 
-  const [selectedColors, setSelectedColors] = useState(userProfile.preferredColors || ['Neutrals', 'Warm Earth']);
+  const [selectedColors, setSelectedColors] = useState<string[]>(userProfile.preferredColors || ['Neutrals', 'Warm Earth']);
 
   // Accordion Expand/Collapse States
   const [isSizesOpen, setIsSizesOpen] = useState(false);
   const [isColorsOpen, setIsColorsOpen] = useState(false);
 
-  const toggleColor = (colorId) => {
+  const toggleColor = (colorId: string) => {
     if (selectedColors.includes(colorId)) {
       setSelectedColors(selectedColors.filter((c) => c !== colorId));
     } else {
@@ -63,10 +69,10 @@ export const ProfileDetailsStep = ({
 
   const selectedShapeObj = BODY_SHAPES.find((s) => s.id === bodyShape) || BODY_SHAPES[0];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updated = {
+    const updated: UserOnboardingProfile = {
       ...userProfile,
       gender,
       heightCm,
@@ -153,7 +159,7 @@ export const ProfileDetailsStep = ({
               GENDER <span className="text-[#DC2626]">*</span>
             </label>
             <div className="grid grid-cols-3 gap-2.5">
-              {['Male', 'Female', 'Other'].map((g) => (
+              {(['Male', 'Female', 'Other'] as const).map((g) => (
                 <button
                   key={g}
                   type="button"
@@ -235,16 +241,17 @@ export const ProfileDetailsStep = ({
             />
           </div>
 
-          {/* BODY SHAPE / BUILD */}
+          {/* BODY SHAPE / BUILD (DROPDOWN + CARDS) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-[#7A6F66] mb-2">
               BODY SHAPE / BUILD
             </label>
 
+            {/* Dropdown Selector */}
             <div className="relative mb-3">
               <select
                 value={bodyShape}
-                onChange={(e) => setBodyShape(e.target.value)}
+                onChange={(e) => setBodyShape(e.target.value as UserOnboardingProfile['bodyShape'])}
                 className="w-full appearance-none py-3.5 px-4 bg-[#FAF8F5] border border-[#EAE2D8] rounded-2xl text-xs font-bold text-[#11100F] focus:outline-none focus:border-[#B88F58] cursor-pointer pr-10"
               >
                 {BODY_SHAPES.map((shape) => (
@@ -256,6 +263,7 @@ export const ProfileDetailsStep = ({
               <ChevronDown className="w-4 h-4 text-[#8C827A] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
 
+            {/* Selected Shape Short Description Banner */}
             <div className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-[#B88F58]/40 flex items-center justify-between text-xs">
               <div>
                 <p className="font-bold text-[#11100F]">{selectedShapeObj.name}</p>
@@ -293,7 +301,7 @@ export const ProfileDetailsStep = ({
             </div>
           </div>
 
-          {/* YOUR SIZES */}
+          {/* YOUR SIZES (EXPANDABLE) */}
           <div className="border border-[#EAE2D8] rounded-2xl overflow-hidden">
             <button
               type="button"
@@ -366,7 +374,7 @@ export const ProfileDetailsStep = ({
             )}
           </div>
 
-          {/* COLOR PALETTE PREFERENCES */}
+          {/* COLOR PALETTE PREFERENCES (EXPANDABLE) */}
           <div className="border border-[#EAE2D8] rounded-2xl overflow-hidden">
             <button
               type="button"
@@ -435,3 +443,4 @@ export const ProfileDetailsStep = ({
     </div>
   );
 };
+

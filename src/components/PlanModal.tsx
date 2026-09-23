@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { X, Check, ShieldCheck, ClipboardList, ArrowRight } from 'lucide-react';
+import { StylePlan } from '../types';
 
-export const PlanModal = ({ plan, isAnnual, onClose, onOpenQuiz }) => {
+interface PlanModalProps {
+  plan: StylePlan | null;
+  isAnnual: boolean;
+  onClose: () => void;
+  onOpenQuiz: () => void;
+}
+
+export const PlanModal: React.FC<PlanModalProps> = ({ plan, isAnnual, onClose, onOpenQuiz }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [confirmed, setConfirmed] = useState(false);
@@ -10,7 +18,7 @@ export const PlanModal = ({ plan, isAnnual, onClose, onOpenQuiz }) => {
 
   const price = isAnnual ? plan.annualPrice : plan.monthlyPrice;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setConfirmed(true);
   };

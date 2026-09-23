@@ -4,9 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-let lenisInstance = null;
+let lenisInstance: Lenis | null = null;
 
-export function initLenis() {
+export function initLenis(): Lenis {
   if (lenisInstance) return lenisInstance;
 
   lenisInstance = new Lenis({
@@ -20,7 +20,7 @@ export function initLenis() {
   lenisInstance.on('scroll', ScrollTrigger.update);
 
   // Connect GSAP ticker to Lenis RAF to avoid double requestAnimationFrame loops
-  const updateRaf = (time) => {
+  const updateRaf = (time: number) => {
     lenisInstance?.raf(time * 1000);
   };
 
@@ -30,17 +30,17 @@ export function initLenis() {
   return lenisInstance;
 }
 
-export function getLenis() {
+export function getLenis(): Lenis | null {
   return lenisInstance;
 }
 
-export function setupStackedSections(sectionIds) {
+export function setupStackedSections(sectionIds: string[]) {
   // Clear any existing ScrollTrigger instances to prevent stale triggers
   ScrollTrigger.getAll().forEach((st) => st.kill());
 
   const elements = sectionIds
     .map((id) => document.getElementById(id))
-    .filter((el) => el !== null);
+    .filter((el): el is HTMLElement => el !== null);
 
   if (elements.length <= 1) return;
 

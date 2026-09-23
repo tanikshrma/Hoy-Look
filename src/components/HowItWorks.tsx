@@ -3,7 +3,11 @@ import uploadImg from '../assets/upload.webp';
 import personalizeImg from '../assets/personalize.webp';
 import generateImg from '../assets/generate.webp';
 
-export const HowItWorks = ({ onOpenQuiz }) => {
+interface HowItWorksProps {
+  onOpenQuiz: () => void;
+}
+
+export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuiz }) => {
   const steps = [
     {
       id: 'step-upload',
@@ -59,7 +63,7 @@ export const HowItWorks = ({ onOpenQuiz }) => {
 
         {/* 3 Step Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 xl:gap-10">
-          {steps.map((step) => (
+          {steps.map((step, idx) => (
             <div
               key={step.id}
               id={`how-it-works-${step.id}`}
@@ -106,3 +110,4 @@ export const HowItWorks = ({ onOpenQuiz }) => {
     </section>
   );
 };
+

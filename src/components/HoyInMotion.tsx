@@ -3,7 +3,11 @@ import { createPortal } from 'react-dom';
 import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles, X } from 'lucide-react';
 import fashionVideo from '../assets/fashion-DNayZjzU.mp4';
 
-export const HoyInMotion = ({ onOpenQuiz }) => {
+interface HoyInMotionProps {
+  onOpenQuiz: () => void;
+}
+
+export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,9 +18,9 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(19);
 
-  const containerRef = useRef(null);
-  const videoRef = useRef(null);
-  const modalVideoRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const modalVideoRef = useRef<HTMLVideoElement>(null);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -72,7 +76,7 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
 
   // Close modal on Escape key
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isModalOpen) {
         handleCloseFullSize();
       }
@@ -111,7 +115,7 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
     }
   };
 
-  const handleSeek = (e) => {
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetTime = parseFloat(e.target.value);
     if (modalVideoRef.current) {
       modalVideoRef.current.currentTime = targetTime;
@@ -119,7 +123,7 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
     }
   };
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     if (isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
@@ -280,7 +284,7 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
 
       </div>
 
-      {/* FULL SCREEN LIGHTBOX MODAL */}
+      {/* FULL SCREEN LIGHTBOX MODAL MATCHING ATTACHED REFERENCE IMAGE EXACTLY */}
       {isModalOpen && createPortal(
         <div
           id="video-fullscreen-modal"
@@ -348,7 +352,7 @@ export const HoyInMotion = ({ onOpenQuiz }) => {
               )}
             </div>
 
-            {/* Bottom Video Control Bar */}
+            {/* Bottom Video Control Bar Matching Reference Image */}
             <div className="bg-[#121110] border-t border-[#26221F] w-full flex flex-col">
               {/* Gold Progress / Seek Bar */}
               <div className="relative w-full h-1.5 bg-[#282420] group/seek cursor-pointer">

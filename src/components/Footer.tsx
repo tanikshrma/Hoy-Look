@@ -1,7 +1,11 @@
 import React from 'react';
 import hoyLogoWhite from '../assets/HOY Logo White.avif';
 
-export const Footer = ({ onOpenQuiz }) => {
+interface FooterProps {
+  onOpenQuiz: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
   return (
     <footer id="main-footer" className="relative z-[80] bg-[#181615] text-[#FAF8F5] pt-16 sm:pt-20 pb-12 border-t border-[#2B2622] shadow-[0_-25px_60px_rgba(0,0,0,0.35)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
