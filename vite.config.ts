@@ -10,8 +10,9 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('.', import.meta.url)),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
+      extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
     },
     server: {
       host: '0.0.0.0',
