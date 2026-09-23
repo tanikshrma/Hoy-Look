@@ -51,6 +51,11 @@ export function setupStackedSections(sectionIds: string[]) {
     // Skip pinning the final element (e.g. Footer)
     if (index === elements.length - 1) return;
 
+    // Do not pin sections that transition continuously into the next section
+    if (el.id === 'hero-section' || el.id === 'looks' || el.id === 'about-hoy' || el.id === 'ready-when-you-are') {
+      return;
+    }
+
     ScrollTrigger.create({
       trigger: el,
       start: () => {

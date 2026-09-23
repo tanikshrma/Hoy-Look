@@ -40,14 +40,14 @@ function MainAppContent() {
   useEffect(() => {
     const lenis = initLenis();
 
-    const handleLenisScroll = (e: { scroll: number }) => {
+    const handleLenisScroll = () => {
       if (isTransitioningRef.current) return;
-      const scrollY = e.scroll;
       let currentIdx = 0;
       for (let i = 0; i < SECTIONS.length; i++) {
         const el = document.getElementById(SECTIONS[i].id);
         if (el) {
-          if (scrollY >= el.offsetTop - 80) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.4) {
             currentIdx = i;
           }
         }
