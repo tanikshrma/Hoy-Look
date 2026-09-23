@@ -14,7 +14,6 @@ import { PlanModal } from './components/PlanModal';
 import { WhatsAppAuthModal } from './components/WhatsAppAuthModal';
 import { OnboardingContainer } from './components/onboarding/OnboardingContainer';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { LookCapsule, StylePlan } from './types';
 import { initLenis, getLenis, setupStackedSections } from './lib/lenis';
 
 const SECTIONS = [
@@ -29,9 +28,9 @@ const SECTIONS = [
 
 function MainAppContent() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const [selectedLook, setSelectedLook] = useState<LookCapsule | null>(null);
+  const [selectedLook, setSelectedLook] = useState(null);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<{ plan: StylePlan; isAnnual: boolean } | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const isTransitioningRef = useRef(false);
 
   const { isAuthModalOpen, closeAuthModal, startOnboarding, setOnboardingStep } = useAuth();
@@ -40,7 +39,7 @@ function MainAppContent() {
   useEffect(() => {
     const lenis = initLenis();
 
-    const handleLenisScroll = (e: { scroll: number }) => {
+    const handleLenisScroll = (e) => {
       if (isTransitioningRef.current) return;
       const scrollY = e.scroll;
       let currentIdx = 0;
@@ -82,7 +81,7 @@ function MainAppContent() {
   }, []);
 
   // Smooth scroll to a specific section using Lenis
-  const scrollToSection = useCallback((index: number) => {
+  const scrollToSection = useCallback((index) => {
     if (index < 0 || index >= SECTIONS.length) return;
     const targetId = SECTIONS[index].id;
     const element = document.getElementById(targetId);

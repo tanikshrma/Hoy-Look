@@ -1,11 +1,7 @@
 import React from 'react';
 import hoyLogoWhite from '../assets/HOY Logo White.avif';
 
-interface ReadyWhenYouAreProps {
-  onOpenQuiz: () => void;
-}
-
-export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenQuiz }) => {
+export const ReadyWhenYouAre = ({ onOpenQuiz }) => {
   return (
     <section
       id="ready-when-you-are"

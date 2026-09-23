@@ -1,23 +1,18 @@
 import React, { useState, useRef } from 'react';
-import { Camera, Image as ImageIcon, ArrowLeft, Check, X, Upload, Sparkles, User as UserIcon } from 'lucide-react';
+import { Camera, Image as ImageIcon, ArrowLeft, Check, X, Sparkles, User as UserIcon } from 'lucide-react';
 import hoyLogo from '../../assets/HOY Logo.avif';
 import { useAuth } from '../../context/AuthContext';
 
-interface PhotoUploadStepProps {
-  onContinue: (photoUrl: string) => void;
-  onBack: () => void;
-}
-
-export const PhotoUploadStep: React.FC<PhotoUploadStepProps> = ({ onContinue, onBack }) => {
+export const PhotoUploadStep = ({ onContinue, onBack }) => {
   const { user, userProfile, updateUserProfile } = useAuth();
   
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(userProfile.photoUrl || null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(userProfile.photoUrl || null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
 
-  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelected = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 15 * 1024 * 1024) {
@@ -26,7 +21,7 @@ export const PhotoUploadStep: React.FC<PhotoUploadStepProps> = ({ onContinue, on
       }
       const reader = new FileReader();
       reader.onload = (event) => {
-        const result = event.target?.result as string;
+        const result = event.target?.result;
         setSelectedPhoto(result);
         updateUserProfile({ photoUrl: result });
         setIsModalOpen(false);

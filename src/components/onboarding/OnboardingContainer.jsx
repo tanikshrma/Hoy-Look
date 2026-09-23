@@ -5,14 +5,9 @@ import { PhotoAnalysisStep } from './PhotoAnalysisStep';
 import { ProfileDetailsStep } from './ProfileDetailsStep';
 import { AIGenerateLooksStep } from './AIGenerateLooksStep';
 
-interface OnboardingContainerProps {
-  onComplete: () => void;
-  onExit: () => void;
-}
-
-export const OnboardingContainer: React.FC<OnboardingContainerProps> = ({ onComplete, onExit }) => {
+export const OnboardingContainer = ({ onComplete, onExit }) => {
   const { onboardingStep, setOnboardingStep, userProfile, updateUserProfile } = useAuth();
-  const [analyzedPhotoUrl, setAnalyzedPhotoUrl] = useState<string | null>(userProfile.photoUrl || null);
+  const [analyzedPhotoUrl, setAnalyzedPhotoUrl] = useState(userProfile.photoUrl || null);
 
   if (onboardingStep === 0) return null;
 
@@ -37,7 +32,7 @@ export const OnboardingContainer: React.FC<OnboardingContainerProps> = ({ onComp
           photoUrl={analyzedPhotoUrl}
           onComplete={(analysisResult) => {
             updateUserProfile({
-              age: parseInt(analysisResult.estimatedAgeRange) || 22,
+              age: parseInt(analysisResult.estimatedAgeRange, 10) || 22,
               heightCm: analysisResult.estimatedHeightCm,
               bodyShape: analysisResult.bodyShape,
               skinToneIndex: analysisResult.skinToneIndex,

@@ -4,10 +4,6 @@ import hoyLogo from '../../assets/HOY Logo.avif';
 import { lookGenerationService, GENERATION_STAGES } from '../../services/lookGenerationService';
 import { useAuth } from '../../context/AuthContext';
 
-interface AIGenerateLooksStepProps {
-  onComplete: () => void;
-}
-
 const AI_DIAGNOSTICS_STEPS = [
   { id: 'face', number: '1.', title: 'Scanning your face', detail: 'Detecting facial landmarks, shape & geometry...' },
   { id: 'color', number: '2.', title: 'Scanning your color', detail: 'Analyzing skin undertone, contrast & palette...' },
@@ -15,7 +11,7 @@ const AI_DIAGNOSTICS_STEPS = [
   { id: 'process', number: '4.', title: 'Processing', detail: 'Synthesizing 3D Neural Twin & outfit capsules...' },
 ];
 
-export const AIGenerateLooksStep: React.FC<AIGenerateLooksStepProps> = ({ onComplete }) => {
+export const AIGenerateLooksStep = ({ onComplete }) => {
   const { userProfile, completeOnboarding } = useAuth();
   const [currentStageIdx, setCurrentStageIdx] = useState(0);
 
@@ -208,4 +204,3 @@ export const AIGenerateLooksStep: React.FC<AIGenerateLooksStepProps> = ({ onComp
     </div>
   );
 };
-

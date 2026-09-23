@@ -1,4 +1,3 @@
-import { LookCapsule, StylePlan } from '../types';
 import style1 from '../assets/style1.webp';
 import style2 from '../assets/style2.webp';
 import style3 from '../assets/style3.webp';
@@ -7,7 +6,7 @@ import style5 from '../assets/style5.webp';
 import style6 from '../assets/style6.webp';
 import style7 from '../assets/style7.webp';
 
-export const CURATED_LOOKS: LookCapsule[] = [
+export const CURATED_LOOKS = [
   {
     id: 'look-1',
     number: '01',
@@ -159,7 +158,7 @@ export const CURATED_LOOKS: LookCapsule[] = [
   }
 ];
 
-export const STYLE_PLANS: StylePlan[] = [
+export const STYLE_PLANS = [
   {
     id: 'free',
     name: 'Free',
