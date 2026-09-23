@@ -1,0 +1,6 @@
+{
+  "name": "HOY Look",
+  "description": "Editorial personal styling platform offering curated wardrobe lookbooks tailored to your lifestyle and aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
