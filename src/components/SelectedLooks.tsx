@@ -170,3 +170,5 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
     </section>
   );
 };
+
+export default SelectedLooks;

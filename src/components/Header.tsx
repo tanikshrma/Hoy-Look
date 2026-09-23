@@ -91,3 +91,5 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection })
     </header>
   );
 };
+
+export default Header;

@@ -298,7 +298,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
                     }}
                     className={`absolute ${occ.positionClass} z-50 ${occ.pillBg} ${occ.pillText} animate-float shadow-[0_12px_28px_rgba(0,0,0,0.18)] px-3 py-1 sm:px-5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 pointer-events-auto cursor-default select-none font-sans-body font-bold text-[10px] sm:text-xs md:text-sm tracking-wider leading-none uppercase`}
                   >
-                    <IconComponent className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 shrink-0" />
+                    <IconComponent className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 shrink-0 stroke-[2.2]" />
                     <span>{occ.label}</span>
                   </div>
                 );
@@ -352,4 +352,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
     </section>
   );
 };
+
+export default Hero;
 
