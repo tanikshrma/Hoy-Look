@@ -41,6 +41,26 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
       id="looks"
       className="relative z-30 min-h-[100dvh] py-14 sm:py-16 lg:py-20 bg-[#FCFAF7] text-[#1E1E1E] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.12)]"
     >
+      {/* Decorative Right Squiggle Wave identical to screenshot */}
+      <div
+        className="pointer-events-none absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 h-[70%] max-h-[460px] w-8 sm:w-12 z-20 flex items-center justify-center opacity-80"
+        aria-hidden="true"
+      >
+        <svg
+          className="w-full h-full text-[#9E6E38]"
+          viewBox="0 0 50 480"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 25 10 C 5 60, 5 100, 25 140 C 45 180, 45 220, 25 260 C 5 300, 5 340, 25 380 C 45 420, 45 450, 25 470"
+            stroke="currentColor"
+            strokeWidth="2.75"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 w-full relative z-10">
         
         {/* Top Header Bar matching attached screenshot */}

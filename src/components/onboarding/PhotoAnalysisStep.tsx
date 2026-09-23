@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Sparkles, Loader2 } from 'lucide-react';
 import hoyLogo from '../../assets/HOY Logo.avif';
-import { photoAnalysisService } from '../../services/photoAnalysisService';
+import { photoAnalysisService, PhotoAnalysisResult } from '../../services/photoAnalysisService';
 
-export const PhotoAnalysisStep = ({ photoUrl, onComplete }) => {
+interface PhotoAnalysisStepProps {
+  photoUrl: string;
+  onComplete: (analysis: PhotoAnalysisResult) => void;
+}
+
+export const PhotoAnalysisStep: React.FC<PhotoAnalysisStepProps> = ({ photoUrl, onComplete }) => {
   const [currentStatus, setCurrentStatus] = useState('Fetching details from your photo...');
   const [subStatus, setSubStatus] = useState('Estimating your age range...');
   const [progress, setProgress] = useState(20);
@@ -120,3 +125,4 @@ export const PhotoAnalysisStep = ({ photoUrl, onComplete }) => {
     </div>
   );
 };
+

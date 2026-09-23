@@ -2,7 +2,11 @@ import React from 'react';
 import { UserCheck } from 'lucide-react';
 import aboutImg from '../assets/about.webp';
 
-export const AboutHoy = ({ onOpenQuiz }) => {
+interface AboutHoyProps {
+  onOpenQuiz?: () => void;
+}
+
+export const AboutHoy: React.FC<AboutHoyProps> = ({ onOpenQuiz }) => {
   return (
     <section
       id="about-hoy"
