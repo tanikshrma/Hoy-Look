@@ -94,7 +94,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = () => {
         <div
           ref={mobileTrackRef}
           onScroll={handleMobileScroll}
-          className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none pb-2 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0"
+          className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 xl:gap-10 overflow-x-auto overflow-y-hidden md:overflow-visible snap-x snap-mandatory no-scrollbar scrollbar-none pb-2 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0"
         >
           {steps.map((step) => (
             <div

@@ -160,9 +160,13 @@ function MainAppContent() {
         <StyleQuizModal
           isOpen={isQuizOpen}
           onClose={handleCloseQuiz}
-          onPlanSelect={() => {
+          onPlanSelect={(chosenPlan) => {
             handleCloseQuiz();
-            scrollToSection(4);
+            if (chosenPlan) {
+              setSelectedPlan({ plan: chosenPlan, isAnnual: false });
+            } else {
+              scrollToSection(4);
+            }
           }}
         />
       )}

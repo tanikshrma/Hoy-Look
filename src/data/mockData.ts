@@ -118,20 +118,6 @@ export const CURATED_LOOKS: LookCapsule[] = [
 
 export const STYLE_PLANS: StylePlan[] = [
   {
-    id: 'free',
-    tier: 'OPEN TO EVERYONE',
-    name: 'Free',
-    subtitle: 'Basic styling for everyone',
-    monthlyPrice: '0',
-    annualPrice: '0',
-    billingFrequency: 'per month',
-    ctaText: 'CHOOSE FREE',
-    features: [
-      '5 looks with shopping links',
-      'Style from your own wardrobe',
-    ],
-  },
-  {
     id: 'explorer',
     tier: 'OPEN TO EVERYONE',
     name: 'Explorer',

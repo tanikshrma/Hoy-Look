@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, ArrowRight, ArrowLeft, CheckCircle2, UserCheck, Heart } from 'lucide-react';
+import { STYLE_PLANS } from '../data/mockData';
+import { StylePlan } from '../types';
 
 interface StyleQuizModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onPlanSelect: () => void;
+  onPlanSelect: (plan?: StylePlan) => void;
 }
 
 export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose, onPlanSelect }) => {
@@ -14,6 +16,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
   const [palette, setPalette] = useState('Warm Neutrals & Terracotta');
   const [silhouette, setSilhouette] = useState('Tailored & Fluid');
   const [submitted, setSubmitted] = useState(false);
+  const [showPlans, setShowPlans] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -41,6 +44,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
   const handleReset = () => {
     setStep(1);
     setSubmitted(false);
+    setShowPlans(false);
     onClose();
   };
 
@@ -72,10 +76,8 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
           <div>
             {/* Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.25em] font-semibold text-[#8C7A6B] mb-1">
-                <span>Personal Style Consultation</span>
-                <span>•</span>
-                <span>Step {step} of 3</span>
+              <div className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#8C7A6B] mb-1">
+                Personal Style Consultation
               </div>
               <h3 id="quiz-modal-title" className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
                 {step === 1 && 'Which occasions do you dress for most?'}
@@ -280,6 +282,139 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
               )}
             </div>
           </div>
+        ) : showPlans ? (
+          /* Plan Selection View inside Modal showing ₹499 and ₹999 plans */
+          <div className="py-2 space-y-5 animate-in fade-in duration-300">
+            <div className="flex items-center justify-start border-b border-[#EAE2D8] pb-3">
+              <button
+                type="button"
+                onClick={() => setShowPlans(false)}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back to Capsule Profile</span>
+              </button>
+            </div>
+
+            <div className="text-center max-w-md mx-auto">
+              <h3 className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
+                Select Your Style Plan
+              </h3>
+              <p className="mt-1 text-xs text-[#665D56] font-sans-body">
+                Curated for your {aesthetic} capsule with Yashika (Lead Editorial Stylist).
+              </p>
+            </div>
+
+            {/* Plans Grid: ₹499 and ₹999 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto pt-1">
+              {/* ₹499 Explorer Plan */}
+              <div className="bg-white rounded-[24px] p-6 border border-[#E0D7CC] flex flex-col justify-between text-left transition-all">
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] font-bold text-[#857C74] mb-1">
+                    OPEN TO EVERYONE
+                  </div>
+                  <h4 className="text-xl font-extrabold text-[#1A1817]">Explorer</h4>
+                  <p className="text-xs text-[#7A7169] mt-0.5 mb-2.5">
+                    For regular outfit updates
+                  </p>
+
+                  <div className="flex items-baseline gap-1 my-2">
+                    <span className="text-3xl font-black text-[#1A1817]">₹499</span>
+                    <span className="text-xs text-[#7A7169]">/mo</span>
+                  </div>
+
+                  <ul className="space-y-2.5 border-t border-black/5 pt-3 my-4 text-xs text-[#524B44]">
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-[#857C74] font-bold shrink-0">✓</span>
+                      <span>50 looks with shopping links</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-[#857C74] font-bold shrink-0">✓</span>
+                      <span>Style from your own wardrobe</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  type="button"
+                  id="modal-select-explorer-btn"
+                  onClick={() => {
+                    const explorerPlan = STYLE_PLANS.find((p) => p.id === 'explorer');
+                    handleReset();
+                    onPlanSelect(explorerPlan);
+                  }}
+                  className="w-full text-center bg-[#1A1817] hover:bg-[#2C2825] active:bg-black text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase py-3.5 px-4 rounded-full transition-all duration-200 cursor-pointer mt-auto"
+                >
+                  CHOOSE EXPLORER
+                </button>
+              </div>
+
+              {/* ₹999 Insider Plan (Most Popular) */}
+              <div className="relative bg-[#181716] text-white rounded-[24px] p-6 border-2 border-[#C5A880]/40 flex flex-col justify-between text-left transition-all mt-3 sm:mt-0">
+                {/* Most Popular Badge */}
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C5A880] text-[#181716] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.22em] px-4 py-1 rounded-full whitespace-nowrap border border-[#FAF9F7]/20">
+                  MOST POPULAR
+                </div>
+
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] font-bold text-[#D48360] mb-1">
+                    YASHIKA'S CLUB
+                  </div>
+                  <h4 className="text-xl font-extrabold text-white">Insider</h4>
+                  <p className="text-xs text-[#A89E93] mt-0.5 mb-2.5">
+                    Our most popular club tier
+                  </p>
+
+                  <div className="flex items-baseline gap-1 my-2">
+                    <span className="text-3xl font-black text-white">₹999</span>
+                    <span className="text-xs text-[#A89E93]">/mo</span>
+                  </div>
+
+                  <ul className="space-y-2.5 border-t border-white/10 pt-3 my-4 text-xs text-[#E5DCD2]">
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-[#C5A880] font-bold shrink-0">✓</span>
+                      <span>100 looks with shopping links</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-[#C5A880] font-bold shrink-0">✓</span>
+                      <span>Style from your own wardrobe</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-[#C5A880] font-bold shrink-0">✓</span>
+                      <span>Stylist session, monthly</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <button
+                  type="button"
+                  id="modal-select-insider-btn"
+                  onClick={() => {
+                    const insiderPlan = STYLE_PLANS.find((p) => p.id === 'insider');
+                    handleReset();
+                    onPlanSelect(insiderPlan);
+                  }}
+                  className="w-full text-center bg-[#C5A880] hover:bg-[#D4B890] active:bg-[#B59870] text-[#181716] font-extrabold text-xs sm:text-sm tracking-wider uppercase py-3.5 px-4 rounded-full transition-all duration-200 cursor-pointer mt-auto"
+                >
+                  CHOOSE INSIDER
+                </button>
+              </div>
+            </div>
+
+            {/* Footer link to view all plans */}
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  handleReset();
+                  onPlanSelect();
+                }}
+                className="text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] underline underline-offset-4 cursor-pointer"
+              >
+                Or view all plans (including Icon • ₹1999) on the page →
+              </button>
+            </div>
+          </div>
         ) : (
           /* Submission Result: Personalized Style Profile */
           <div className="text-center py-4 space-y-6 animate-in fade-in zoom-in-95 duration-300">
@@ -295,7 +430,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                 Your {aesthetic} Capsule
               </h3>
               <p className="mt-2 text-xs text-[#665D56] font-sans-body max-w-md mx-auto">
-                We have paired you with <strong className="text-[#1A1817]">Elena Rostova</strong> (Lead Editorial Stylist) to prepare your initial lookbooks.
+                We have paired you with <strong className="text-[#1A1817]">Yashika</strong> (Lead Editorial Stylist) to prepare your initial lookbooks.
               </p>
             </div>
 
@@ -323,10 +458,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <button
                 id="quiz-choose-plan-btn"
-                onClick={() => {
-                  handleReset();
-                  onPlanSelect();
-                }}
+                onClick={() => setShowPlans(true)}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C5A880] hover:bg-[#B3946B] text-white text-xs font-semibold tracking-widest uppercase px-8 py-3.5 rounded-full shadow-sm cursor-pointer"
               >
                 <span>Select Your Style Plan</span>

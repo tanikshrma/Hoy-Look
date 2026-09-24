@@ -102,7 +102,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({ plan, isAnnual, onClose, o
                 <input
                   type="text"
                   required
-                  placeholder="Elena Rostova"
+                  placeholder="Yashika"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-3 rounded-xl border border-[#D9CDBF] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C5A880]"

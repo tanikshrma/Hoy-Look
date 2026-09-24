@@ -145,7 +145,7 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = () => {
           <div
             ref={trackRef}
             onScroll={handleScroll}
-            className="flex gap-3.5 sm:gap-6 overflow-x-auto pb-3 pt-1 snap-x snap-mandatory scrollbar-none touch-pan-x"
+            className="flex gap-3.5 sm:gap-6 overflow-x-auto overflow-y-hidden pb-3 pt-1 snap-x snap-mandatory no-scrollbar scrollbar-none touch-pan-x"
             style={{ scrollBehavior: 'smooth' }}
           >
             {CURATED_LOOKS.map((look, idx) => (
