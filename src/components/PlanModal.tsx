@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Check, ShieldCheck, ClipboardList, ArrowRight } from 'lucide-react';
 import { StylePlan } from '../types';
 
@@ -13,6 +13,16 @@ export const PlanModal: React.FC<PlanModalProps> = ({ plan, isAnnual, onClose, o
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [confirmed, setConfirmed] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleReset();
+    };
+    if (plan) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [plan]);
 
   if (!plan) return null;
 
@@ -33,6 +43,9 @@ export const PlanModal: React.FC<PlanModalProps> = ({ plan, isAnnual, onClose, o
   return (
     <div
       id="plan-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="plan-modal-title"
       className="fixed inset-0 z-[10000] overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
       onClick={handleReset}
     >
@@ -57,7 +70,7 @@ export const PlanModal: React.FC<PlanModalProps> = ({ plan, isAnnual, onClose, o
               <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#8C7A6B] block mb-1">
                 Begin Membership
               </span>
-              <h3 className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
+              <h3 id="plan-modal-title" className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
                 {plan.name}
               </h3>
               <p className="text-xs text-[#6E645D] font-sans-body mt-1">

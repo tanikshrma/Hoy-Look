@@ -21,6 +21,10 @@ export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenQuiz }) 
             src={hoyLogoWhite}
             alt=""
             className="w-full h-auto object-contain opacity-[0.12]"
+            loading="lazy"
+            decoding="async"
+            width="320"
+            height="96"
           />
           {/* Soft background overlay for seamless subtle blend */}
           <div className="absolute inset-0 bg-[#BE7A5B]/40 pointer-events-none" />

@@ -97,7 +97,14 @@ export const PhotoUploadStep: React.FC<PhotoUploadStepProps> = ({ onNext, onBack
         {previewUrl ? (
           <div className="flex flex-col sm:flex-row items-center gap-6 w-full">
             <div className="w-28 h-36 rounded-xl overflow-hidden border-2 border-[#1A1817] shadow-md shrink-0 bg-black">
-              <img src={previewUrl} alt="Upload preview" className="w-full h-full object-cover" />
+              <img
+                src={previewUrl}
+                alt="Upload preview"
+                className="w-full h-full object-cover"
+                width="112"
+                height="144"
+                decoding="async"
+              />
             </div>
             <div className="text-left flex-1">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#9E6E38] uppercase tracking-wider mb-1">

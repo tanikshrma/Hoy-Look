@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Check, ArrowRight, ArrowLeft, CheckCircle2, UserCheck, Heart } from 'lucide-react';
-import { OccasionType } from '../types';
 
 interface StyleQuizModalProps {
   isOpen: boolean;
@@ -15,6 +14,16 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
   const [palette, setPalette] = useState('Warm Neutrals & Terracotta');
   const [silhouette, setSilhouette] = useState('Tailored & Fluid');
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleReset();
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -38,6 +47,9 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
   return (
     <div
       id="style-quiz-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quiz-modal-title"
       className="fixed inset-0 z-[10000] overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
       onClick={handleReset}
     >
@@ -65,7 +77,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                 <span>•</span>
                 <span>Step {step} of 3</span>
               </div>
-              <h3 className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
+              <h3 id="quiz-modal-title" className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
                 {step === 1 && 'Which occasions do you dress for most?'}
                 {step === 2 && 'Choose your primary style aesthetic'}
                 {step === 3 && 'Select your ideal silhouette & palette'}

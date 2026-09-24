@@ -73,6 +73,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection })
               src={hoyLogo}
               alt="HOY Look"
               className="h-12 sm:h-16 md:h-18 lg:h-20 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              width="160"
+              height="48"
+              decoding="async"
             />
           </a>
 

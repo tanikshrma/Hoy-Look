@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { LookDetailModal } from './components/LookDetailModal';
 import { StyleQuizModal } from './components/StyleQuizModal';
 import { PlanModal } from './components/PlanModal';
+import { LegalPolicyModal } from './components/LegalPolicyModal';
 import { OnboardingContainer } from './components/onboarding/OnboardingContainer';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LookCapsule, StylePlan } from './types';
@@ -31,9 +32,10 @@ function MainAppContent() {
   const [selectedLook, setSelectedLook] = useState<LookCapsule | null>(null);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ plan: StylePlan; isAnnual: boolean } | null>(null);
+  const [activePolicy, setActivePolicy] = useState<string | null>(null);
   const isTransitioningRef = useRef(false);
 
-  const { startOnboarding, setOnboardingStep } = useAuth();
+  const { setOnboardingStep } = useAuth();
 
   // Initialize single global Lenis instance & scroll listener
   useEffect(() => {
@@ -158,7 +160,10 @@ function MainAppContent() {
         <ReadyWhenYouAre onOpenQuiz={handleOpenQuiz} />
 
         {/* Footer */}
-        <Footer onOpenQuiz={handleOpenQuiz} />
+        <Footer
+          onOpenQuiz={handleOpenQuiz}
+          onOpenPolicy={setActivePolicy}
+        />
 
       </main>
 
@@ -188,6 +193,14 @@ function MainAppContent() {
           isAnnual={selectedPlan.isAnnual}
           onClose={() => setSelectedPlan(null)}
           onOpenQuiz={handleOpenQuiz}
+        />
+      )}
+
+      {/* Legal & Privacy Policy Modal */}
+      {activePolicy && (
+        <LegalPolicyModal
+          policyKey={activePolicy}
+          onClose={() => setActivePolicy(null)}
         />
       )}
 

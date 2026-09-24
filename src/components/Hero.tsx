@@ -157,10 +157,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
         aria-hidden="true"
       >
         <div className="relative w-full">
+          {/* Background HOY Logo Watermark */}
           <img
             src={hoyLogo}
             alt=""
             className="w-full h-auto object-contain opacity-[0.10] mix-blend-multiply"
+            width="320"
+            height="96"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-[#FAF9F7]/40 pointer-events-none" />
         </div>
@@ -181,28 +185,28 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
               </span>
             </div>
 
-            {/* Headline */}
-            <div className="relative inline-block select-none my-0 sm:my-1">
-              <div className="relative z-10 space-y-0.5 sm:space-y-1 flex flex-col items-center lg:items-start">
+            {/* Semantic Primary H1 Headline */}
+            <h1 className="relative inline-block select-none my-0 sm:my-1">
+              <span className="relative z-10 space-y-0.5 sm:space-y-1 flex flex-col items-center lg:items-start">
                 
                 {/* Line 1: FASHION */}
-                <div className="font-serif-display font-bold text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#11100F]">
+                <span className="block font-serif-display font-bold text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#11100F]">
                   FASHION
-                </div>
+                </span>
 
                 {/* Line 2: LIVES */}
-                <div className="font-serif-display font-light text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#B57451]">
+                <span className="block font-serif-display font-light text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#B57451]">
                   LIVES
-                </div>
+                </span>
 
                 {/* Line 3: IN YOU. in beige highlight block */}
-                <div className="pt-1 sm:pt-2.5">
+                <span className="block pt-1 sm:pt-2.5">
                   <span className="inline-block bg-[#C39E6D] text-[#FAF9F7] px-3.5 py-0.5 sm:px-5 sm:py-1.5 rounded-xs font-sans-body font-black text-3xl xs:text-4xl sm:text-6xl lg:text-[72px] xl:text-[84px] leading-[0.92] tracking-tight">
                     IN YOU.
                   </span>
-                </div>
-              </div>
-            </div>
+                </span>
+              </span>
+            </h1>
 
             {/* Subtitle Description */}
             <p className="mt-2 sm:mt-4 text-[#5A6478] text-xs sm:text-base lg:text-base font-sans-body font-normal leading-relaxed max-w-xs sm:max-w-md lg:max-w-lg px-2 sm:px-0">
@@ -272,6 +276,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
                         alt={`HOY ${occ.label} Styling`}
                         className="w-full h-full object-cover object-[center_18%]"
                         loading="eager"
+                        decoding="async"
+                        width="380"
+                        height="480"
                       />
                     </div>
                   );

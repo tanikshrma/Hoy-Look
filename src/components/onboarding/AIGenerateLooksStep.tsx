@@ -57,7 +57,14 @@ export const AIGenerateLooksStep: React.FC<AIGenerateLooksStepProps> = ({ onComp
       {/* Synthesis Display */}
       <div className="relative bg-[#1A1817] rounded-2xl p-8 text-white overflow-hidden mb-8 flex flex-col items-center">
         <div className="w-40 h-48 rounded-xl overflow-hidden border border-[#C5A880]/50 relative mb-5 shadow-2xl">
-          <img src={generateImg} alt="Generated capsule preview" className="w-full h-full object-cover" />
+          <img
+            src={generateImg}
+            alt="Generated capsule preview"
+            className="w-full h-full object-cover"
+            width="160"
+            height="192"
+            decoding="async"
+          />
           {!isCompleted && (
             <div className="absolute inset-0 bg-[#1A1817]/40 backdrop-blur-[1px] flex items-center justify-center">
               <Sparkles className="w-8 h-8 text-[#C5A880] animate-spin" />

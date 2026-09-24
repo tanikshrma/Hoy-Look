@@ -117,11 +117,12 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
         {/* Carousel Area */}
         <div className="relative">
           
-          {/* Left Arrow Button */}
+          {/* Left Arrow Button (Desktop / Tablet) */}
           <button
+            type="button"
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className={`absolute -left-2 sm:-left-6 top-[40%] -translate-y-1/2 z-30 size-9 sm:size-12 rounded-full bg-[#FAF5EE]/95 hover:bg-white text-[#38302A] shadow-md sm:shadow-lg border border-[#E8DFC2] flex items-center justify-center transition-all duration-200 cursor-pointer ${
+            className={`hidden sm:flex absolute -left-4 sm:-left-6 lg:-left-7 top-[40%] -translate-y-1/2 z-30 size-9 sm:size-12 rounded-full bg-[#FAF5EE]/95 hover:bg-white text-[#38302A] shadow-md sm:shadow-lg border border-[#E8DFC2] items-center justify-center transition-all duration-200 cursor-pointer ${
               currentIndex === 0 ? 'opacity-20 pointer-events-none' : 'hover:scale-105 active:scale-95'
             }`}
             aria-label="Previous looks"
@@ -129,11 +130,12 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
             <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-[#38302A]" />
           </button>
 
-          {/* Right Arrow Button */}
+          {/* Right Arrow Button (Desktop / Tablet) */}
           <button
+            type="button"
             onClick={handleNext}
             disabled={currentIndex >= maxIndex}
-            className={`absolute -right-2 sm:-right-6 top-[40%] -translate-y-1/2 z-30 size-9 sm:size-12 rounded-full bg-[#FAF5EE]/95 hover:bg-white text-[#38302A] shadow-md sm:shadow-lg border border-[#E8DFC2] flex items-center justify-center transition-all duration-200 cursor-pointer ${
+            className={`hidden sm:flex absolute -right-4 sm:-right-6 lg:-right-7 top-[40%] -translate-y-1/2 z-30 size-9 sm:size-12 rounded-full bg-[#FAF5EE]/95 hover:bg-white text-[#38302A] shadow-md sm:shadow-lg border border-[#E8DFC2] items-center justify-center transition-all duration-200 cursor-pointer ${
               currentIndex >= maxIndex ? 'opacity-20 pointer-events-none' : 'hover:scale-105 active:scale-95'
             }`}
             aria-label="Next looks"
@@ -141,11 +143,11 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
             <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#38302A]" />
           </button>
 
-          {/* Cards Track - Matching standard section padding & horizontal scroll margins */}
+          {/* Cards Track - Properly aligned with section header margins on mobile & desktop */}
           <div
             ref={trackRef}
             onScroll={handleScroll}
-            className="flex gap-3.5 sm:gap-6 overflow-x-auto pb-3 pt-1 snap-x snap-mandatory scrollbar-none touch-pan-x -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0"
+            className="flex gap-3.5 sm:gap-6 overflow-x-auto pb-3 pt-1 snap-x snap-mandatory scrollbar-none touch-pan-x"
             style={{ scrollBehavior: 'smooth' }}
           >
             {CURATED_LOOKS.map((look, idx) => (
@@ -161,6 +163,9 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
                     alt={look.title}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-104"
                     loading="lazy"
+                    decoding="async"
+                    width="320"
+                    height="410"
                   />
 
                   {/* Top Left Number Overlay */}

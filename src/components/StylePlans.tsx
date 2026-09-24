@@ -118,6 +118,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
 
                   {/* Button */}
                   <button
+                    type="button"
                     id={`select-plan-${plan.id}`}
                     onClick={() => onSelectPlan(plan, false)}
                     className="w-full text-center bg-[#181716] hover:bg-[#2A2623] active:bg-black text-white font-extrabold text-xs tracking-wider uppercase py-3 sm:py-3.5 px-4 rounded-full transition-all duration-200 cursor-pointer border border-white/20 mt-auto shadow-sm"
@@ -173,6 +174,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
 
                 {/* Button */}
                 <button
+                  type="button"
                   id={`select-plan-${plan.id}`}
                   onClick={() => onSelectPlan(plan, false)}
                   className="w-full text-center bg-[#1A1817] hover:bg-[#2C2825] active:bg-black text-white font-extrabold text-xs tracking-wider uppercase py-3 sm:py-3.5 px-4 rounded-full shadow-xs transition-all duration-200 cursor-pointer mt-auto"

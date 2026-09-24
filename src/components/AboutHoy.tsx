@@ -23,6 +23,10 @@ export const AboutHoy: React.FC<AboutHoyProps> = ({ onOpenQuiz }) => {
                   src={aboutImg}
                   alt="House of You - Editorial Styling"
                   className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                  decoding="async"
+                  width="520"
+                  height="650"
                 />
               </div>
             </div>

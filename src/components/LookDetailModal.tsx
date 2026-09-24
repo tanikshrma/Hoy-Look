@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Shirt, Heart } from 'lucide-react';
 import { LookCapsule } from '../types';
 
@@ -12,6 +12,16 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
   const [saved, setSaved] = useState(false);
   const [addedItems, setAddedItems] = useState<string[]>([]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (look) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [look, onClose]);
+
   if (!look) return null;
 
   const toggleAddItem = (itemId: string) => {
@@ -23,6 +33,9 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
   return (
     <div
       id="look-detail-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="look-detail-title"
       className="fixed inset-0 z-[10000] overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
       onClick={onClose}
     >
@@ -50,7 +63,8 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
                 src={look.image}
                 alt={look.title}
                 className="w-full h-full object-cover object-top"
-                referrerPolicy="no-referrer"
+                loading="eager"
+                decoding="async"
               />
               <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-xs px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#1A1817]">
                 {look.occasion}
@@ -77,7 +91,7 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
                   {look.category} Capsule Edit
                 </span>
               </div>
-              <h3 className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
+              <h3 id="look-detail-title" className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
                 {look.title}
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-[#615750] font-sans-body leading-relaxed">

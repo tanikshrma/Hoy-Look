@@ -3,9 +3,16 @@ import hoyLogoWhite from '../assets/HOY Logo White.avif';
 
 interface FooterProps {
   onOpenQuiz: () => void;
+  onOpenPolicy?: (key: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenQuiz, onOpenPolicy }) => {
+  const handlePolicyClick = (key: string) => {
+    if (onOpenPolicy) {
+      onOpenPolicy(key);
+    }
+  };
+
   return (
     <footer id="main-footer" className="relative z-[80] bg-[#181615] text-[#FAF8F5] pt-8 sm:pt-20 pb-6 sm:pb-12 border-t border-[#2B2622] shadow-[0_-25px_60px_rgba(0,0,0,0.35)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,6 +26,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
               src={hoyLogoWhite}
               alt="HOY - House of You"
               className="h-14 sm:h-24 md:h-28 w-auto object-contain opacity-95"
+              width="220"
+              height="88"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -44,14 +55,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
                 </a>
               </li>
               <li>
-                <button onClick={onOpenQuiz} className="hover:text-white transition-colors text-left cursor-pointer">
+                <button type="button" onClick={onOpenQuiz} className="hover:text-white transition-colors text-left cursor-pointer">
                   FAQ
                 </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Terms & Conditions')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Terms & Conditions
-                </span>
+                </button>
               </li>
             </ul>
           </div>
@@ -63,34 +78,58 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
             </h5>
             <ul className="space-y-1.5 sm:space-y-3 text-xs sm:text-sm text-[#D1C9C0] font-sans-body font-medium">
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Privacy Policy')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Privacy Policy
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Payment Policy')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Payment Policy
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Grievance Policy')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Grievance Policy
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Disclaimer')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Disclaimer
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('Refund Policy')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   Refund Policy
-                </span>
+                </button>
               </li>
               <li>
-                <span className="hover:text-white transition-colors cursor-pointer">
+                <button
+                  type="button"
+                  onClick={() => handlePolicyClick('AI & Image Use')}
+                  className="hover:text-white transition-colors text-left cursor-pointer"
+                >
                   AI & Image Use
-                </span>
+                </button>
               </li>
             </ul>
           </div>
@@ -102,12 +141,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz }) => {
             </h5>
             <ul className="flex md:block items-center gap-6 md:space-y-3 text-xs sm:text-sm text-[#D1C9C0] font-sans-body font-medium">
               <li>
-                <button onClick={onOpenQuiz} className="hover:text-white transition-colors cursor-pointer text-left">
+                <button type="button" onClick={onOpenQuiz} className="hover:text-white transition-colors cursor-pointer text-left">
                   Sign in
                 </button>
               </li>
               <li>
-                <button onClick={onOpenQuiz} className="hover:text-white transition-colors cursor-pointer text-left">
+                <button type="button" onClick={onOpenQuiz} className="hover:text-white transition-colors cursor-pointer text-left">
                   Create account
                 </button>
               </li>

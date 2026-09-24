@@ -110,6 +110,9 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuiz }) => {
                   alt={step.alt}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
                   loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="250"
                 />
                 <div className="absolute top-2.5 left-2.5 bg-[#1E1710] text-white text-[10px] sm:text-xs font-mono font-bold px-2 py-0.5 rounded-full border border-white/20">
                   {step.stepNum}
