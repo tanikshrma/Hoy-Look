@@ -3,7 +3,6 @@ export * from './Hero';
 export * from './HowItWorks';
 export * from './SelectedLooks';
 export * from './HoyInMotion';
-export * from './AboutHoy';
 export * from './StylePlans';
 export * from './ReadyWhenYouAre';
 export * from './Footer';

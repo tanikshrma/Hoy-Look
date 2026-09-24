@@ -48,7 +48,7 @@ export function setupStackedSections(sectionIds: string[]) {
   const unpinnedSectionIds = [
     'hero-section',       // Hero -> HOW IT WORKS
     'looks',              // SELECTED LOOKS -> HOY IN MOTION
-    'about-hoy',          // ABOUT -> STYLE PLANS
+    'plans',              // STYLE PLANS -> READY WHEN YOU ARE
     'ready-when-you-are', // READY WHEN YOU ARE -> Footer
   ];
 

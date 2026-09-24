@@ -8,7 +8,7 @@ interface HeaderProps {
   activeSectionIndex?: number;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection, activeSectionIndex }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -78,6 +78,37 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection })
               decoding="async"
             />
           </a>
+
+          {/* Desktop Navigation Menu Links */}
+          <nav className="hidden md:flex items-center gap-7 lg:gap-9">
+            {[
+              { label: 'How It Works', href: '#process', sectionIndex: 1 },
+              { label: 'Selected Looks', href: '#looks', sectionIndex: 2 },
+              { label: 'In Motion', href: '#motion', sectionIndex: 3 },
+              { label: 'Style Plans', href: '#plans', sectionIndex: 4 },
+            ].map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigateSection) {
+                    onNavigateSection(item.sectionIndex);
+                  } else {
+                    const el = document.querySelector(item.href);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className={`text-xs uppercase tracking-[0.18em] font-semibold transition-colors duration-200 cursor-pointer ${
+                  activeSectionIndex === item.sectionIndex
+                    ? 'text-[#C39E6D] font-bold'
+                    : 'text-[#554C42] hover:text-[#111111]'
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
           {/* Action: SIGN IN */}
           <div className="flex items-center gap-3 relative">

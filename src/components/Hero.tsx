@@ -149,59 +149,55 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
     <section
       ref={heroRef}
       id="hero-section"
-      className="relative z-10 min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-16 xs:pt-20 sm:pt-24 lg:pt-20 pb-4 xs:pb-6 sm:pb-8 overflow-hidden bg-[#FAF9F7]"
+      className="relative z-10 h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-14 xs:pt-16 sm:pt-24 lg:pt-20 pb-2 xs:pb-3 sm:pb-8 overflow-hidden bg-[#FAF9F7]"
     >
       {/* Background HOY Logo Watermark */}
       <div
-        className="pointer-events-none absolute left-1/2 lg:left-[48%] top-[50%] lg:top-[45%] -translate-x-1/2 -translate-y-1/2 select-none z-0 max-w-[220px] sm:max-w-[260px] lg:max-w-[320px] w-full"
+        className="pointer-events-none absolute left-1/2 lg:left-[48%] top-[56%] lg:top-[45%] -translate-x-1/2 -translate-y-1/2 select-none z-0 max-w-[240px] xs:max-w-[270px] sm:max-w-[320px] w-full opacity-18"
         aria-hidden="true"
       >
-        <div className="relative w-full">
-          {/* Background HOY Logo Watermark */}
-          <img
-            src={hoyLogo}
-            alt=""
-            className="w-full h-auto object-contain opacity-[0.10] mix-blend-multiply"
-            width="320"
-            height="96"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-[#FAF9F7]/40 pointer-events-none" />
-        </div>
+        <img
+          src={hoyLogo}
+          alt=""
+          className="w-full h-auto object-contain mix-blend-multiply"
+          width="320"
+          height="96"
+          decoding="async"
+        />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full flex-1 flex flex-col justify-between">
         
-        {/* Main Grid: Card Carousel on top in mobile (order-1), Typography below (order-2) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center my-auto flex-1 py-2 sm:py-4">
+        {/* Main Grid: Typography on top in mobile (order-1), Card Carousel below (order-2) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-1.5 xs:gap-2.5 lg:gap-6 items-center my-auto flex-1 py-0.5 sm:py-4">
           
           {/* TYPOGRAPHY & DESCRIPTION: Left on desktop (order-1), Top on mobile */}
           <div className="order-1 lg:col-span-6 xl:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left relative z-10">
             
             {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-1 sm:mb-2">
-              <span className="text-[10px] sm:text-xs tracking-[0.25em] font-semibold text-[#8C7A6B] uppercase">
+            <div className="flex items-center gap-2 mb-0.5 sm:mb-2">
+              <span className="text-[9.5px] xs:text-[10.5px] sm:text-xs tracking-[0.24em] font-semibold text-[#8C7A6B] uppercase">
                 YOUR STYLE. YOUR STORY. YOUR WAY.
               </span>
             </div>
 
             {/* Semantic Primary H1 Headline */}
             <h1 className="relative inline-block select-none my-0 sm:my-1">
-              <span className="relative z-10 space-y-0.5 sm:space-y-1 flex flex-col items-center lg:items-start">
+              <span className="relative z-10 space-y-0 sm:space-y-1 flex flex-col items-center lg:items-start">
                 
                 {/* Line 1: FASHION */}
-                <span className="block font-serif-display font-bold text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#11100F]">
+                <span className="block font-serif-display font-bold text-[34px] xs:text-[40px] sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#11100F]">
                   FASHION
                 </span>
 
                 {/* Line 2: LIVES */}
-                <span className="block font-serif-display font-light text-4xl xs:text-5xl sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#B57451]">
+                <span className="block font-serif-display font-light text-[34px] xs:text-[40px] sm:text-7xl lg:text-[82px] xl:text-[96px] leading-[0.88] tracking-tight text-[#B57451]">
                   LIVES
                 </span>
 
                 {/* Line 3: IN YOU. in beige highlight block */}
-                <span className="block pt-1 sm:pt-2.5">
-                  <span className="inline-block bg-[#C39E6D] text-[#FAF9F7] px-3.5 py-0.5 sm:px-5 sm:py-1.5 rounded-xs font-sans-body font-black text-3xl xs:text-4xl sm:text-6xl lg:text-[72px] xl:text-[84px] leading-[0.92] tracking-tight">
+                <span className="block pt-0.5 sm:pt-2.5">
+                  <span className="inline-block bg-[#C39E6D] text-[#FAF9F7] px-3.5 py-0.5 sm:px-5 sm:py-1.5 rounded-[3px] font-sans-body font-black text-xl xs:text-2xl sm:text-6xl lg:text-[72px] xl:text-[84px] leading-[0.92] tracking-tight">
                     IN YOU.
                   </span>
                 </span>
@@ -209,16 +205,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
             </h1>
 
             {/* Subtitle Description */}
-            <p className="mt-2 sm:mt-4 text-[#5A6478] text-xs sm:text-base lg:text-base font-sans-body font-normal leading-relaxed max-w-xs sm:max-w-md lg:max-w-lg px-2 sm:px-0">
+            <p className="mt-1 xs:mt-1.5 sm:mt-4 text-[#5A6478] text-[11px] xs:text-xs sm:text-base font-sans-body font-normal leading-snug sm:leading-relaxed max-w-[290px] xs:max-w-xs sm:max-w-md lg:max-w-lg px-2 sm:px-0">
               Outfits picked for your body, your wardrobe, and your day — ready in seconds, no guesswork needed.
             </p>
 
           </div>
 
           {/* CARD DECK CAROUSEL: Right on desktop (order-2), Below headline on mobile */}
-          <div className="order-2 lg:col-span-6 xl:col-span-5 relative flex items-center justify-center pt-1 lg:pt-0 my-1 lg:my-0">
+          <div className="order-2 lg:col-span-6 xl:col-span-5 relative flex items-center justify-center pt-0 my-0.5 sm:my-1 lg:my-0">
             <div
-              className="relative w-full max-w-[210px] xs:max-w-[250px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[380px] aspect-[3/3.8] will-change-transform transition-transform duration-300 ease-out py-2 sm:py-4 px-2 sm:px-3"
+              className="relative w-full max-w-[205px] xs:max-w-[235px] sm:max-w-[320px] lg:max-w-[360px] xl:max-w-[380px] aspect-[3/3.75] will-change-transform transition-transform duration-300 ease-out py-0.5 sm:py-4 px-1 sm:px-3"
               style={{
                 transform: `translate3d(0, ${imageTranslateY}px, 0) scale(${imageScale})`,
               }}
@@ -247,15 +243,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
                     opacityStyle = 1;
                   } else if (relIndex === 1) {
                     zIndex = 20;
-                    transformStyle = 'translate3d(22px, 10px, 0) rotate(6deg) scale(0.97)';
+                    transformStyle = 'translate3d(20px, 8px, 0) rotate(6deg) scale(0.97)';
                     opacityStyle = 0.72;
                   } else if (relIndex === occasions.length - 1) {
                     zIndex = 10;
-                    transformStyle = 'translate3d(-22px, 8px, 0) rotate(-6deg) scale(0.95)';
+                    transformStyle = 'translate3d(-20px, 6px, 0) rotate(-6deg) scale(0.95)';
                     opacityStyle = 0.62;
                   } else {
                     zIndex = 5;
-                    transformStyle = 'translate3d(0, 14px, 0) rotate(0deg) scale(0.92)';
+                    transformStyle = 'translate3d(0, 12px, 0) rotate(0deg) scale(0.92)';
                     opacityStyle = 0;
                   }
 
@@ -268,7 +264,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
                         opacity: opacityStyle,
                         transition: 'transform 1100ms cubic-bezier(0.22, 1, 0.36, 1), opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1)',
                       }}
-                      className="absolute inset-0 rounded-[24px] sm:rounded-[36px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.18)] bg-[#E2DCD4] border border-black/5 transform-gpu will-change-transform pointer-events-auto"
+                      className="absolute inset-0 rounded-[22px] sm:rounded-[36px] overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.18)] bg-[#E2DCD4] border border-black/5 transform-gpu will-change-transform pointer-events-auto"
                     >
                       <img
                         src={occ.image}
@@ -302,7 +298,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
                       transform: `translate3d(${transformX}px, ${transformY}px, 0)`,
                       animationDelay: `${idx * 0.75}s`,
                     }}
-                    className={`absolute ${occ.positionClass} z-50 ${occ.pillBg} ${occ.pillText} animate-float shadow-[0_12px_28px_rgba(0,0,0,0.18)] px-3 py-1 sm:px-5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 pointer-events-auto cursor-default select-none font-sans-body font-bold text-[10px] sm:text-xs md:text-sm tracking-wider leading-none uppercase`}
+                    className={`absolute ${occ.positionClass} z-50 ${occ.pillBg} ${occ.pillText} animate-float shadow-[0_8px_22px_rgba(0,0,0,0.16)] px-2.5 py-1 sm:px-5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 pointer-events-auto cursor-default select-none font-sans-body font-bold text-[10px] sm:text-xs md:text-sm tracking-wider leading-none uppercase border border-black/5`}
                   >
                     <IconComponent className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 shrink-0 stroke-[2.2]" />
                     <span>{occ.label}</span>
@@ -316,16 +312,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
         </div>
 
         {/* BOTTOM ACTION BAR (Both Mobile & Desktop) */}
-        <div className="pt-2 sm:pt-4 pb-1 sm:pb-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 mt-auto">
+        <div className="pt-1.5 sm:pt-4 pb-1 sm:pb-3 flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-6 mt-auto">
           
           {/* Mobile Layout (< sm): Stacked Centered Buttons with clear hierarchy */}
-          <div className="flex flex-col items-center gap-2.5 w-full sm:hidden px-2">
+          <div className="flex flex-col items-center gap-1.5 w-full sm:hidden px-2">
             {/* CREATE MY LOOK CTA Button */}
             <button
               type="button"
               id="hero-create-look-btn-mobile"
               onClick={onOpenQuiz}
-              className="w-full max-w-[280px] xs:max-w-[320px] inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs font-bold tracking-widest uppercase py-3.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body"
+              className="w-full max-w-[280px] xs:max-w-[310px] inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs xs:text-[13px] font-bold tracking-widest uppercase py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body"
             >
               <span>CREATE MY LOOK</span>
               <span className="text-base leading-none">→</span>
@@ -336,10 +332,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
               type="button"
               id="hero-scroll-indicator-mobile"
               onClick={onExploreClick}
-              className="flex items-center justify-center gap-1.5 group cursor-pointer py-1 text-center"
+              className="flex items-center justify-center gap-1.5 group cursor-pointer py-0.5 text-center"
               aria-label="Scroll to explore looks"
             >
-              <span className="text-[10px] uppercase tracking-[0.22em] font-semibold text-[#5A6478] group-hover:text-[#11100F] transition-colors font-sans-body">
+              <span className="text-[10px] xs:text-[10.5px] uppercase tracking-[0.22em] font-semibold text-[#5A6478] group-hover:text-[#11100F] transition-colors font-sans-body">
                 SCROLL TO EXPLORE
               </span>
               <ArrowDown className="w-3.5 h-3.5 text-[#5A6478] group-hover:text-[#11100F] transition-all transform group-hover:translate-y-0.5 animate-bounce" />

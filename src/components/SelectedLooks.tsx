@@ -166,29 +166,36 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = () => {
                   />
 
                   {/* Top Left Number Overlay */}
-                  <div className="absolute top-2.5 left-3 sm:top-3.5 sm:left-4 select-none pointer-events-none">
-                    <span className="font-serif-display text-xl sm:text-3xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.45)]">
+                  <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3.5 select-none pointer-events-none">
+                    <span className="font-serif-display text-lg sm:text-2xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.45)]">
                       {look.number || String(idx + 1).padStart(2, '0')}
                     </span>
                   </div>
-                </div>
 
-                {/* Below Image: Pill Badges & Look Title */}
-                <div className="mt-2.5 sm:mt-4 space-y-1.5 sm:space-y-2">
-                  <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
-                    {(look.tags || [look.occasion.toUpperCase()]).map((tag) => (
+                  {/* Bottom Gradient Scrim for crisp badge legibility */}
+                  <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 via-black/15 to-transparent pointer-events-none" />
+
+                  {/* Tags directly ON Image Card (Bottom Left) */}
+                  <div className="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 right-2.5 z-10 flex flex-wrap items-center gap-1 sm:gap-1.5 pointer-events-none">
+                    {(look.tags || [look.occasion.toUpperCase()]).slice(0, 2).map((tag) => (
                       <span
                         key={tag}
-                        className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-[#DCD3C7] bg-[#FAF8F5] text-[#554C42] text-[9.5px] sm:text-[10.5px] tracking-wider uppercase font-semibold leading-none shadow-2xs"
+                        className="px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full bg-white/92 backdrop-blur-xs text-[#1E1B18] text-[8.5px] sm:text-[9.5px] tracking-wider uppercase font-bold leading-none shadow-xs border border-white/60"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
+                </div>
 
-                  <h3 className="font-serif-display text-base sm:text-xl font-normal text-[#1A1817] group-hover:text-[#9E6E38] transition-colors leading-snug truncate">
+                {/* Below Image: Look Title & Occasion */}
+                <div className="mt-2 sm:mt-2.5 space-y-0.5">
+                  <h3 className="font-serif-display text-[13px] sm:text-[15px] md:text-base font-normal text-[#1A1817] group-hover:text-[#9E6E38] transition-colors leading-snug truncate">
                     {look.title}
                   </h3>
+                  <p className="text-[10px] sm:text-xs text-[#8C827A] truncate font-sans-body">
+                    {look.occasion}
+                  </p>
                 </div>
               </div>
             ))}

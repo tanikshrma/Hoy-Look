@@ -17,7 +17,7 @@ export const CURATED_LOOKS: LookCapsule[] = [
     alt: 'Minimalist neutral tailored blazer with cream linen trousers',
     occasion: 'Weekend Brunch & Creative Office',
     stylingTip: 'Pair with warm gold accents and square-toe leather loafers for an effortless silhouette.',
-    tags: ['TAILORED', 'WARM EARTH', 'EFFORTLESS'],
+    tags: ['TAILORED', 'WARM EARTH'],
     items: [
       { name: 'Double-Breasted Linen Blazer', brand: 'Studio HOY', category: 'Outerwear', price: '₹18,500' },
       { name: 'Wide-Leg Pleated Trousers', brand: 'Studio HOY', category: 'Bottoms', price: '₹12,400' },
@@ -48,7 +48,7 @@ export const CURATED_LOOKS: LookCapsule[] = [
     alt: 'Classic belted stone trench over cashmere crewneck',
     occasion: 'Executive Travel & Client Meetings',
     stylingTip: 'Tie the belt casually at the back during transit, or belt tight for high-structure authority.',
-    tags: ['OUTERWEAR', 'CITY LUXE', 'TIMELESS'],
+    tags: ['CITY LUXE', 'TIMELESS'],
     items: [
       { name: 'Water-Resistant Cotton Gabardine Trench', brand: 'HOY Heritage', category: 'Outerwear', price: '₹36,000' },
       { name: 'Fine-Knit Cashmere Mockneck', brand: 'Studio HOY', category: 'Knitwear', price: '₹16,200' },

@@ -4,7 +4,6 @@ import { Hero } from './components/Hero';
 import { SelectedLooks } from './components/SelectedLooks';
 import { HowItWorks } from './components/HowItWorks';
 import { HoyInMotion } from './components/HoyInMotion';
-import { AboutHoy } from './components/AboutHoy';
 import { StylePlans } from './components/StylePlans';
 import { ReadyWhenYouAre } from './components/ReadyWhenYouAre';
 import { Footer } from './components/Footer';
@@ -21,7 +20,6 @@ const SECTIONS = [
   { id: 'process', name: 'How It Works' },
   { id: 'looks', name: 'Selected Looks' },
   { id: 'motion', name: 'In Motion' },
-  { id: 'about-hoy', name: 'About' },
   { id: 'plans', name: 'Style Plans' },
   { id: 'ready-when-you-are', name: 'Ready When You Are' },
 ];
@@ -133,7 +131,7 @@ function MainAppContent() {
 
         {/* Section 2: Selected Generated Looks & App View */}
         <SelectedLooks
-          onOpenPlanModal={() => scrollToSection(5)}
+          onOpenPlanModal={() => scrollToSection(4)}
         />
 
         {/* Section 3: HOY in Motion */}
@@ -141,17 +139,12 @@ function MainAppContent() {
           onOpenQuiz={handleOpenQuiz}
         />
 
-        {/* Section 4: About House of You */}
-        <AboutHoy
-          onOpenQuiz={handleOpenQuiz}
-        />
-
-        {/* Section 5: Style Plans */}
+        {/* Section 4: Style Plans */}
         <StylePlans
           onSelectPlan={(plan, isAnnual) => setSelectedPlan({ plan, isAnnual })}
         />
 
-        {/* Section 6: Ready When You Are CTA */}
+        {/* Section 5: Ready When You Are CTA */}
         <ReadyWhenYouAre onOpenQuiz={handleOpenQuiz} />
 
         {/* Footer */}
@@ -169,7 +162,7 @@ function MainAppContent() {
           onClose={handleCloseQuiz}
           onPlanSelect={() => {
             handleCloseQuiz();
-            scrollToSection(5);
+            scrollToSection(4);
           }}
         />
       )}
