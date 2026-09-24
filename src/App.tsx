@@ -8,13 +8,12 @@ import { AboutHoy } from './components/AboutHoy';
 import { StylePlans } from './components/StylePlans';
 import { ReadyWhenYouAre } from './components/ReadyWhenYouAre';
 import { Footer } from './components/Footer';
-import { LookDetailModal } from './components/LookDetailModal';
 import { StyleQuizModal } from './components/StyleQuizModal';
 import { PlanModal } from './components/PlanModal';
 import { LegalPolicyModal } from './components/LegalPolicyModal';
 import { OnboardingContainer } from './components/onboarding/OnboardingContainer';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { LookCapsule, StylePlan } from './types';
+import { StylePlan } from './types';
 import { initLenis, getLenis, setupStackedSections } from './lib/lenis';
 
 const SECTIONS = [
@@ -29,7 +28,6 @@ const SECTIONS = [
 
 function MainAppContent() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const [selectedLook, setSelectedLook] = useState<LookCapsule | null>(null);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<{ plan: StylePlan; isAnnual: boolean } | null>(null);
   const [activePolicy, setActivePolicy] = useState<string | null>(null);
@@ -131,13 +129,10 @@ function MainAppContent() {
         />
 
         {/* Section 1: How It Works (The Process) */}
-        <HowItWorks
-          onOpenQuiz={handleOpenQuiz}
-        />
+        <HowItWorks />
 
         {/* Section 2: Selected Generated Looks & App View */}
         <SelectedLooks
-          onSelectLook={(look) => setSelectedLook(look)}
           onOpenPlanModal={() => scrollToSection(5)}
         />
 
@@ -168,14 +163,6 @@ function MainAppContent() {
       </main>
 
       {/* Interactive Modals */}
-      {selectedLook && (
-        <LookDetailModal
-          look={selectedLook}
-          onClose={() => setSelectedLook(null)}
-          onOpenQuiz={handleOpenQuiz}
-        />
-      )}
-
       {isQuizOpen && (
         <StyleQuizModal
           isOpen={isQuizOpen}

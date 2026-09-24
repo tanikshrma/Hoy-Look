@@ -149,7 +149,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
     <section
       ref={heroRef}
       id="hero-section"
-      className="relative z-10 min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-20 sm:pt-24 lg:pt-20 pb-8 overflow-hidden bg-[#FAF9F7]"
+      className="relative z-10 min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-16 xs:pt-20 sm:pt-24 lg:pt-20 pb-4 xs:pb-6 sm:pb-8 overflow-hidden bg-[#FAF9F7]"
     >
       {/* Background HOY Logo Watermark */}
       <div
@@ -226,8 +226,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
               
               {/* STACKED CARDS CONTAINER */}
               <div 
-                onClick={onOpenQuiz}
-                className="relative w-full h-full cursor-pointer"
+                className="relative w-full h-full select-none"
               >
                 {occasions.map((occ, idx) => {
                   const isExiting = occ.id === exitingOccasionId;
@@ -317,40 +316,71 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
         </div>
 
         {/* BOTTOM ACTION BAR (Both Mobile & Desktop) */}
-        <div className="pt-2 sm:pt-4 pb-2 sm:pb-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 mt-auto">
+        <div className="pt-2 sm:pt-4 pb-1 sm:pb-3 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6 mt-auto">
           
-          {/* Horizontal divider line for desktop */}
-          <div className="hidden sm:block flex-1 h-[1px] bg-[#D4DCE6] mr-4 lg:mr-8" />
-
-          {/* Action Cluster */}
-          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4 sm:gap-8 ml-auto px-2 sm:px-0">
-            
+          {/* Mobile Layout (< sm): Stacked Centered Buttons with clear hierarchy */}
+          <div className="flex flex-col items-center gap-2.5 w-full sm:hidden px-2">
             {/* CREATE MY LOOK CTA Button */}
             <button
-              id="hero-create-look-btn"
+              type="button"
+              id="hero-create-look-btn-mobile"
               onClick={onOpenQuiz}
-              className="inline-flex items-center justify-center gap-1.5 xs:gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-[11px] xs:text-xs sm:text-sm font-bold tracking-wider xs:tracking-widest uppercase px-3.5 xs:px-5 sm:px-8 py-2.5 xs:py-3 sm:py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body whitespace-nowrap shrink-0"
+              className="w-full max-w-[280px] xs:max-w-[320px] inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs font-bold tracking-widest uppercase py-3.5 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body"
             >
-              <span className="whitespace-nowrap">CREATE MY LOOK</span>
-              <span className="text-sm xs:text-base leading-none shrink-0">→</span>
+              <span>CREATE MY LOOK</span>
+              <span className="text-base leading-none">→</span>
             </button>
 
-            {/* Vertical Divider */}
-            <div className="hidden sm:block w-[1px] h-7 bg-[#CBD5E1]" />
-
-            {/* Scroll To Explore Indicator */}
+            {/* SCROLL TO EXPLORE Indicator */}
             <button
-              id="hero-scroll-indicator"
+              type="button"
+              id="hero-scroll-indicator-mobile"
               onClick={onExploreClick}
-              className="flex flex-col items-center justify-center group cursor-pointer py-1 text-center shrink-0"
+              className="flex items-center justify-center gap-1.5 group cursor-pointer py-1 text-center"
               aria-label="Scroll to explore looks"
             >
-              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#5A6478] group-hover:text-[#11100F] transition-colors font-sans-body">
+              <span className="text-[10px] uppercase tracking-[0.22em] font-semibold text-[#5A6478] group-hover:text-[#11100F] transition-colors font-sans-body">
                 SCROLL TO EXPLORE
               </span>
-              <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#5A6478] group-hover:text-[#11100F] transition-all transform group-hover:translate-y-1 mt-0.5" />
+              <ArrowDown className="w-3.5 h-3.5 text-[#5A6478] group-hover:text-[#11100F] transition-all transform group-hover:translate-y-0.5 animate-bounce" />
             </button>
+          </div>
 
+          {/* Desktop & Tablet Layout (sm and up) */}
+          <div className="hidden sm:flex items-center justify-between w-full">
+            {/* Horizontal divider line for desktop */}
+            <div className="flex-1 h-[1px] bg-[#D4DCE6] mr-4 lg:mr-8" />
+
+            {/* Action Cluster */}
+            <div className="flex items-center justify-end gap-6 lg:gap-8 ml-auto shrink-0">
+              {/* CREATE MY LOOK CTA Button */}
+              <button
+                type="button"
+                id="hero-create-look-btn"
+                onClick={onOpenQuiz}
+                className="inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs sm:text-sm font-bold tracking-widest uppercase px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body whitespace-nowrap shrink-0"
+              >
+                <span>CREATE MY LOOK</span>
+                <span className="text-base leading-none shrink-0">→</span>
+              </button>
+
+              {/* Vertical Divider */}
+              <div className="w-[1px] h-7 bg-[#CBD5E1]" />
+
+              {/* Scroll To Explore Indicator */}
+              <button
+                type="button"
+                id="hero-scroll-indicator"
+                onClick={onExploreClick}
+                className="flex flex-col items-center justify-center group cursor-pointer py-1 text-center shrink-0"
+                aria-label="Scroll to explore looks"
+              >
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#5A6478] group-hover:text-[#11100F] transition-colors font-sans-body">
+                  SCROLL TO EXPLORE
+                </span>
+                <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#5A6478] group-hover:text-[#11100F] transition-all transform group-hover:translate-y-1 mt-0.5" />
+              </button>
+            </div>
           </div>
 
         </div>

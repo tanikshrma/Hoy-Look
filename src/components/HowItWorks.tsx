@@ -4,10 +4,10 @@ import personalizeImg from '../assets/personalize.webp';
 import generateImg from '../assets/generate.webp';
 
 interface HowItWorksProps {
-  onOpenQuiz: () => void;
+  onOpenQuiz?: () => void;
 }
 
-export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuiz }) => {
+export const HowItWorks: React.FC<HowItWorksProps> = () => {
   const [activeMobileIdx, setActiveMobileIdx] = useState(0);
   const mobileTrackRef = useRef<HTMLDivElement>(null);
 
@@ -100,8 +100,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuiz }) => {
             <div
               key={step.id}
               id={`how-it-works-${step.id}`}
-              className="group flex flex-col cursor-pointer shrink-0 w-[82vw] sm:w-[320px] md:w-auto snap-center bg-[#E6D8C5]/60 md:bg-transparent p-4 sm:p-0 rounded-2xl sm:rounded-none border border-[#1E1710]/10 md:border-0 shadow-xs md:shadow-none transition-all duration-300"
-              onClick={onOpenQuiz}
+              className="group flex flex-col shrink-0 w-[82vw] sm:w-[320px] md:w-auto snap-center bg-[#E6D8C5]/60 md:bg-transparent p-4 sm:p-0 rounded-2xl sm:rounded-none border border-[#1E1710]/10 md:border-0 shadow-xs md:shadow-none transition-all duration-300 select-none"
             >
               {/* Image Frame with dark border */}
               <div className="relative aspect-[16/10] sm:aspect-[16/10.2] w-full rounded-xl sm:rounded-3xl overflow-hidden border-[2px] sm:border-[2.5px] border-[#1E1710] shadow-[0_4px_16px_rgba(30,23,16,0.15)] sm:shadow-[0_8px_24px_rgba(30,23,16,0.18)] bg-[#1E1710] transition-transform duration-300 group-hover:-translate-y-1">

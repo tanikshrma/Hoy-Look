@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { LookCapsule } from '../types';
 import { CURATED_LOOKS } from '../data/mockData';
 
 interface SelectedLooksProps {
-  onSelectLook: (look: LookCapsule) => void;
   onOpenPlanModal?: () => void;
 }
 
-export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) => {
+export const SelectedLooks: React.FC<SelectedLooksProps> = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
   const isProgrammaticScroll = useRef(false);
@@ -153,8 +151,7 @@ export const SelectedLooks: React.FC<SelectedLooksProps> = ({ onSelectLook }) =>
             {CURATED_LOOKS.map((look, idx) => (
               <div
                 key={look.id}
-                onClick={() => onSelectLook(look)}
-                className="group shrink-0 w-[65vw] xs:w-[52vw] sm:w-[38vw] md:w-[28vw] lg:w-[19.2%] snap-start flex flex-col cursor-pointer transition-transform duration-300 hover:-translate-y-1.5"
+                className="group shrink-0 w-[65vw] xs:w-[52vw] sm:w-[38vw] md:w-[28vw] lg:w-[19.2%] snap-start flex flex-col transition-transform duration-300 hover:-translate-y-1"
               >
                 {/* Image Frame with Top-Center Alignment */}
                 <div className="relative aspect-[3/3.1] sm:aspect-[3/3.85] w-full rounded-[16px] sm:rounded-[24px] overflow-hidden bg-[#EAE2D8] border border-[#E4D9CC] shadow-xs group-hover:shadow-lg transition-all duration-300">

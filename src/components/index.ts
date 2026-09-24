@@ -7,7 +7,7 @@ export * from './AboutHoy';
 export * from './StylePlans';
 export * from './ReadyWhenYouAre';
 export * from './Footer';
-export * from './LookDetailModal';
+export * from './LegalPolicyModal';
 export * from './StyleQuizModal';
 export * from './PlanModal';
 export * from './onboarding/OnboardingContainer';
