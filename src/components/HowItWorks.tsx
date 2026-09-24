@@ -67,7 +67,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenQuiz }) => {
   return (
     <section
       id="process"
-      className="relative z-20 py-8 sm:py-16 lg:py-20 bg-[#B68E56] text-[#1E1710] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.18)]"
+      className="relative z-20 scroll-mt-0 pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-16 lg:pb-20 bg-[#B68E56] text-[#1E1710] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.18)]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         

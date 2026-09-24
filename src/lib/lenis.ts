@@ -12,14 +12,14 @@ export function initLenis(): Lenis {
   lenisInstance = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    touchMultiplier: 2,
+    touchMultiplier: 1.8,
     infinite: false,
   });
 
   // Synchronize Lenis scroll position with GSAP ScrollTrigger
   lenisInstance.on('scroll', ScrollTrigger.update);
 
-  // Connect GSAP ticker to Lenis RAF to avoid double requestAnimationFrame loops
+  // Connect GSAP ticker to Lenis RAF
   const updateRaf = (time: number) => {
     lenisInstance?.raf(time * 1000);
   };
@@ -44,25 +44,32 @@ export function setupStackedSections(sectionIds: string[]) {
 
   if (elements.length <= 1) return;
 
+  // Sections that transition continuously into the next section without stopping
+  const unpinnedSectionIds = [
+    'hero-section',       // Hero -> HOW IT WORKS
+    'looks',              // SELECTED LOOKS -> HOY IN MOTION
+    'about-hoy',          // ABOUT -> STYLE PLANS
+    'ready-when-you-are', // READY WHEN YOU ARE -> Footer
+  ];
+
   elements.forEach((el, index) => {
-    // Ensure ascending z-index so subsequent sections smoothly cover previous ones
+    // Progressive z-index so subsequent sections smoothly cover previous ones
     el.style.zIndex = String((index + 1) * 10);
 
-    // Skip pinning the final element (e.g. Footer)
+    // Skip pinning final element (Footer)
     if (index === elements.length - 1) return;
 
-    // Do not pin sections that transition continuously into the next section
-    if (el.id === 'hero-section' || el.id === 'looks' || el.id === 'about-hoy' || el.id === 'ready-when-you-are') {
+    // Skip pinning continuous paired sections
+    if (unpinnedSectionIds.includes(el.id)) {
       return;
     }
 
+    // Pin stacked base sections so the next section slides OVER them cleanly
     ScrollTrigger.create({
       trigger: el,
       start: () => {
         const h = el.offsetHeight;
         const v = window.innerHeight;
-        // If content fits inside viewport, pin immediately when top hits top of viewport
-        // If content is taller than viewport, user scrolls through content until bottom hits bottom of viewport
         return h <= v ? 'top top' : 'bottom bottom';
       },
       end: () => {

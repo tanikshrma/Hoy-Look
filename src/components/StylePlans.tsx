@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { StylePlan } from '../types';
 import { STYLE_PLANS } from '../data/mockData';
 
@@ -7,20 +7,46 @@ interface StylePlansProps {
 }
 
 export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
+  const [activeMobileIdx, setActiveMobileIdx] = useState(0);
+  const mobileTrackRef = useRef<HTMLDivElement>(null);
+
+  const handleMobileScroll = () => {
+    if (mobileTrackRef.current) {
+      const scrollLeft = mobileTrackRef.current.scrollLeft;
+      const cardWidth = mobileTrackRef.current.firstElementChild
+        ? (mobileTrackRef.current.firstElementChild as HTMLElement).offsetWidth + 14
+        : mobileTrackRef.current.offsetWidth * 0.82;
+      if (cardWidth > 0) {
+        const index = Math.round(scrollLeft / cardWidth);
+        setActiveMobileIdx(Math.min(STYLE_PLANS.length - 1, Math.max(0, index)));
+      }
+    }
+  };
+
+  const scrollToMobileCard = (idx: number) => {
+    if (mobileTrackRef.current) {
+      const cardWidth = mobileTrackRef.current.firstElementChild
+        ? (mobileTrackRef.current.firstElementChild as HTMLElement).offsetWidth + 14
+        : mobileTrackRef.current.offsetWidth * 0.82;
+      mobileTrackRef.current.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+      setActiveMobileIdx(idx);
+    }
+  };
+
   return (
     <section
       id="plans"
-      className="relative z-[60] min-h-[100dvh] py-12 sm:py-16 md:py-20 bg-[#B59157] text-[#1A1817] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.18)]"
+      className="relative z-[60] min-h-0 md:min-h-[100dvh] py-8 sm:py-16 lg:py-20 bg-[#B88F58] text-[#1A1817] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.18)]"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
         
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-14">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-2 sm:gap-6 mb-4 sm:mb-10">
           <div>
-            <p className="text-[11px] sm:text-xs tracking-[0.22em] font-semibold text-[#2E2419] uppercase mb-2">
+            <p className="text-[10px] sm:text-xs tracking-[0.25em] font-semibold text-[#2E2419] uppercase mb-0.5 sm:mb-1">
               STYLE PLANS
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] tracking-tight leading-[1.08] uppercase">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] tracking-tight leading-[1.08] uppercase">
               <span className="block">
                 <span className="font-['Cinzel'] font-bold text-[#1A1817]">STYLE FOR EVERYONE.</span>
               </span>
@@ -31,14 +57,18 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
           </div>
 
           <div className="lg:max-w-xs xl:max-w-sm lg:pb-2">
-            <p className="text-[#2E2419] text-sm sm:text-[15px] font-sans-body font-normal leading-relaxed">
+            <p className="text-[#2E2419] text-xs sm:text-[15px] font-sans-body font-normal leading-relaxed">
               Every plan ships AI-styled looks with instant shopping links — Insider and Icon add a real stylist.
             </p>
           </div>
         </div>
 
-        {/* 4 Plans Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch">
+        {/* 4 Plans: Horizontal Carousel on Mobile (reduces vertical scroll), Grid on Desktop */}
+        <div
+          ref={mobileTrackRef}
+          onScroll={handleMobileScroll}
+          className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6 items-stretch overflow-x-auto sm:overflow-visible snap-x snap-mandatory scrollbar-none pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 pt-3 sm:pt-2"
+        >
           {STYLE_PLANS.map((plan) => {
             const isInsider = plan.isDark || plan.id === 'insider';
 
@@ -47,27 +77,27 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                 <div
                   key={plan.id}
                   id={`pricing-card-${plan.id}`}
-                  className="relative rounded-[22px] bg-[#181615] text-white p-6 sm:p-7 flex flex-col justify-between shadow-2xl border border-[#2D2824] transition-all duration-300 transform hover:-translate-y-1 mt-3 sm:mt-0"
+                  className="relative rounded-[22px] sm:rounded-[28px] bg-[#181716] text-white p-5 sm:p-7 flex flex-col justify-between shadow-2xl border border-[#2E2925] transition-transform duration-300 shrink-0 w-[82vw] xs:w-[75vw] sm:w-auto snap-center mt-2 sm:mt-0"
                 >
                   {/* MOST POPULAR Badge Tab on top */}
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C99E66] text-[#181615] text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.2em] px-4 py-1 rounded-t-md shadow-xs z-20">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C5A880] text-[#181716] text-[9.5px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-0.5 sm:px-5 sm:py-1 rounded-t-lg shadow-sm z-20 whitespace-nowrap">
                     MOST POPULAR
                   </div>
 
                   <div>
-                    {/* Category Eyebrow */}
-                    <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold text-[#C85235] mb-3 pt-1">
+                    {/* Tier Eyebrow */}
+                    <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold text-[#D48360] mb-2 sm:mb-3 pt-0.5">
                       {plan.tier}
                     </div>
 
                     {/* Plan Name */}
-                    <h3 className="font-serif-display text-2xl font-bold text-white tracking-tight">
+                    <h3 className="font-sans-body text-xl sm:text-3xl font-extrabold text-white tracking-tight">
                       {plan.name}
                     </h3>
 
                     {/* Price */}
-                    <div className="mt-3 mb-6 flex items-baseline gap-0.5">
-                      <span className="font-sans-body text-3xl font-extrabold text-white tracking-tight">
+                    <div className="mt-1 sm:mt-2 mb-4 sm:mb-6 flex items-baseline gap-0.5">
+                      <span className="font-sans-body text-2xl sm:text-4xl font-black text-white tracking-tight">
                         ₹{plan.monthlyPrice}
                       </span>
                       <span className="text-xs text-[#A89E93] font-medium">
@@ -76,10 +106,10 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                     </div>
 
                     {/* Features List */}
-                    <ul className="space-y-2.5 mb-8">
+                    <ul className="space-y-2 sm:space-y-3 mb-5 sm:mb-8">
                       {plan.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs text-[#E5DCD2] font-sans-body">
-                          <span className="text-[#D4A774] font-bold text-xs mt-0.5 shrink-0">✓</span>
+                        <li key={i} className="flex items-start gap-2 text-xs sm:text-[13px] text-[#E5DCD2] font-sans-body leading-snug">
+                          <span className="text-[#C5A880] font-bold text-xs shrink-0 mt-0.5">✓</span>
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -90,7 +120,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                   <button
                     id={`select-plan-${plan.id}`}
                     onClick={() => onSelectPlan(plan, false)}
-                    className="w-full text-center bg-[#252220] hover:bg-[#322E2B] active:bg-[#181615] text-white font-bold text-xs tracking-wider uppercase py-3.5 px-4 rounded-full transition-all duration-200 cursor-pointer border border-white/10 mt-auto"
+                    className="w-full text-center bg-[#181716] hover:bg-[#2A2623] active:bg-black text-white font-extrabold text-xs tracking-wider uppercase py-3 sm:py-3.5 px-4 rounded-full transition-all duration-200 cursor-pointer border border-white/20 mt-auto shadow-sm"
                   >
                     {plan.ctaText}
                   </button>
@@ -103,26 +133,26 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
               <div
                 key={plan.id}
                 id={`pricing-card-${plan.id}`}
-                className="relative rounded-[22px] bg-white text-[#1A1817] p-6 sm:p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1"
+                className="relative rounded-[22px] sm:rounded-[28px] bg-white text-[#1A1817] p-5 sm:p-7 flex flex-col justify-between shadow-md hover:shadow-xl transition-transform duration-300 shrink-0 w-[82vw] xs:w-[75vw] sm:w-auto snap-center mt-2 sm:mt-0"
               >
                 <div>
-                  {/* Category Eyebrow */}
+                  {/* Tier Eyebrow */}
                   <div
-                    className={`text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold mb-3 ${
-                      plan.id === 'icon' ? 'text-[#C85235]' : 'text-[#857B72]'
+                    className={`text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-bold mb-2 sm:mb-3 ${
+                      plan.id === 'icon' ? 'text-[#C56247]' : 'text-[#857C74]'
                     }`}
                   >
                     {plan.tier}
                   </div>
 
                   {/* Plan Name */}
-                  <h3 className="font-serif-display text-2xl font-bold text-[#1A1817] tracking-tight">
+                  <h3 className="font-sans-body text-xl sm:text-3xl font-extrabold text-[#1A1817] tracking-tight">
                     {plan.name}
                   </h3>
 
                   {/* Price */}
-                  <div className="mt-3 mb-6 flex items-baseline gap-0.5">
-                    <span className="font-sans-body text-3xl font-extrabold text-[#1A1817] tracking-tight">
+                  <div className="mt-1 sm:mt-2 mb-4 sm:mb-6 flex items-baseline gap-0.5">
+                    <span className="font-sans-body text-2xl sm:text-4xl font-black text-[#1A1817] tracking-tight">
                       ₹{plan.monthlyPrice}
                     </span>
                     <span className="text-xs text-[#7A7169] font-medium">
@@ -131,10 +161,10 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                   </div>
 
                   {/* Features List */}
-                  <ul className="space-y-2.5 mb-8">
+                  <ul className="space-y-2 sm:space-y-3 mb-5 sm:mb-8">
                     {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-xs text-[#524B44] font-sans-body">
-                        <span className="text-[#857B72] font-bold text-xs mt-0.5 shrink-0">✓</span>
+                      <li key={i} className="flex items-start gap-2 text-xs sm:text-[13px] text-[#524B44] font-sans-body leading-snug">
+                        <span className="text-[#857C74] font-bold text-xs shrink-0 mt-0.5">✓</span>
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -145,7 +175,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                 <button
                   id={`select-plan-${plan.id}`}
                   onClick={() => onSelectPlan(plan, false)}
-                  className="w-full text-center bg-[#181615] hover:bg-[#2B2724] active:bg-black text-white font-bold text-xs tracking-wider uppercase py-3.5 px-4 rounded-full shadow-xs transition-all duration-200 cursor-pointer mt-auto"
+                  className="w-full text-center bg-[#1A1817] hover:bg-[#2C2825] active:bg-black text-white font-extrabold text-xs tracking-wider uppercase py-3 sm:py-3.5 px-4 rounded-full shadow-xs transition-all duration-200 cursor-pointer mt-auto"
                 >
                   {plan.ctaText}
                 </button>
@@ -154,10 +184,29 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
           })}
         </div>
 
+        {/* Mobile Horizontal Scroll Indicator Dots */}
+        <div className="flex sm:hidden items-center justify-between mt-3 px-1">
+          <div className="flex items-center gap-1.5">
+            {STYLE_PLANS.map((plan, idx) => (
+              <button
+                key={plan.id}
+                type="button"
+                onClick={() => scrollToMobileCard(idx)}
+                aria-label={`Scroll to plan ${plan.name}`}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                  activeMobileIdx === idx ? 'w-6 bg-[#181716]' : 'w-2 bg-[#181716]/30'
+                }`}
+              />
+            ))}
+          </div>
+          <span className="text-[10px] font-mono font-bold uppercase text-[#2E2419]">
+            {STYLE_PLANS[activeMobileIdx].name} • Swipe →
+          </span>
+        </div>
+
       </div>
     </section>
   );
 };
 
 export default StylePlans;
-

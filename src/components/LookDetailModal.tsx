@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Shirt, Check, Heart, ShoppingBag, ArrowRight } from 'lucide-react';
+import { X, Shirt, Heart } from 'lucide-react';
 import { LookCapsule } from '../types';
 
 interface LookDetailModalProps {
@@ -43,13 +43,13 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           
-          {/* Left: Main Look Image & Palette */}
+          {/* Left: Main Look Image & Tags */}
           <div className="md:col-span-5 space-y-4">
             <div className="relative rounded-2xl overflow-hidden shadow-md bg-[#F2ECE4] aspect-3/4 border border-[#E8E0D6]">
               <img
                 src={look.image}
                 alt={look.title}
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-top"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute top-3 left-3 bg-[#FAF8F5]/90 backdrop-blur-xs px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-[#1A1817]">
@@ -57,42 +57,14 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
               </div>
             </div>
 
-            {/* Color Palette Swatches */}
-            <div className="p-3 bg-white rounded-xl border border-[#EAE2D8] flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#8C7A6B]">
-                Curated Palette:
+            {/* Styling Tip */}
+            <div className="p-4 bg-white rounded-xl border border-[#EAE2D8]">
+              <span className="text-[10px] uppercase tracking-wider font-bold text-[#9E6E38] block mb-1">
+                Stylist Tip
               </span>
-              <div className="flex items-center gap-1.5">
-                {look.palette.map((color, idx) => (
-                  <span
-                    key={idx}
-                    className="w-5 h-5 rounded-full border border-black/10 shadow-xs"
-                    style={{ backgroundColor: color }}
-                    title={color}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Stylist Card */}
-            <div className="p-4 bg-white rounded-xl border border-[#EAE2D8] flex items-center gap-3">
-              <img
-                src={look.stylistAvatar}
-                alt={look.stylistName}
-                className="w-10 h-10 rounded-full object-cover border border-[#D9CDBF]"
-                referrerPolicy="no-referrer"
-              />
-              <div>
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#B85D43] block">
-                  Curated by
-                </span>
-                <h4 className="font-serif-display font-bold text-xs text-[#1A1817]">
-                  {look.stylistName}
-                </h4>
-                <p className="text-[10px] text-[#7A6F66]">
-                  {look.stylistRole}
-                </p>
-              </div>
+              <p className="text-xs text-[#554C42] leading-relaxed italic font-serif">
+                "{look.stylingTip}"
+              </p>
             </div>
           </div>
 
@@ -102,24 +74,14 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
             <div>
               <div className="inline-flex items-center gap-2 mb-2">
                 <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5A880]">
-                  {look.occasion} Capsule Collection
+                  {look.category} Capsule Edit
                 </span>
               </div>
               <h3 className="font-serif-display text-2xl sm:text-3xl font-bold text-[#1A1817]">
                 {look.title}
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-[#615750] font-sans-body leading-relaxed">
-                {look.tagline}
-              </p>
-            </div>
-
-            {/* Stylist's Editorial Note */}
-            <div className="p-4 bg-[#FAF5EE] rounded-xl border-l-3 border-[#B85D43]">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#B85D43] block mb-1">
-                Stylist's Fitting Note
-              </span>
-              <p className="font-serif-editorial italic text-xs sm:text-sm text-[#38302B] leading-relaxed">
-                "{look.stylistNote}"
+                Occasion: {look.occasion}
               </p>
             </div>
 
@@ -129,44 +91,39 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
                 <span className="text-xs uppercase tracking-wider font-bold text-[#1A1817]">
                   Capsule Pieces ({look.items.length})
                 </span>
-                <span className="text-xs text-[#8C7A6B]">
-                  Estimated Total: <strong className="text-[#1A1817] font-serif-display text-sm">${look.totalPrice}</strong>
-                </span>
               </div>
 
               <div className="space-y-2.5 max-h-56 overflow-y-auto pr-1">
-                {look.items.map((item) => {
-                  const isAdded = addedItems.includes(item.id);
+                {look.items.map((item, idx) => {
+                  const itemId = `item-${idx}`;
+                  const isAdded = addedItems.includes(itemId);
                   return (
                     <div
-                      key={item.id}
+                      key={idx}
                       className="p-3 bg-white rounded-xl border border-[#ECE4DA] flex items-center justify-between gap-3 hover:border-[#C5A880] transition-colors"
                     >
                       <div className="flex items-center gap-3 overflow-hidden">
-                        <img
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="w-12 h-12 rounded-lg object-cover bg-[#F5EFEB] shrink-0"
-                          referrerPolicy="no-referrer"
-                        />
+                        <div className="w-10 h-10 rounded-lg bg-[#FAF5EE] border border-[#E8DFC2] flex items-center justify-center font-bold text-xs text-[#9E6E38] shrink-0">
+                          0{idx + 1}
+                        </div>
                         <div className="overflow-hidden">
                           <p className="text-xs font-bold text-[#1A1817] truncate">
                             {item.name}
                           </p>
                           <p className="text-[11px] text-[#7A6E65] truncate">
-                            {item.brand} • {item.material} ({item.color})
+                            {item.brand} • {item.category}
                           </p>
                         </div>
                       </div>
 
                       <div className="text-right shrink-0">
                         <span className="text-xs font-serif-display font-bold text-[#1A1817] block">
-                          ${item.price}
+                          {item.price}
                         </span>
                         <button
-                          onClick={() => toggleAddItem(item.id)}
+                          onClick={() => toggleAddItem(itemId)}
                           className={`text-[10px] uppercase tracking-wider font-semibold cursor-pointer ${
-                            isAdded ? 'text-[#B85D43]' : 'text-[#8C7A6B] hover:text-[#1A1817]'
+                            isAdded ? 'text-[#9E6E38]' : 'text-[#8C7A6B] hover:text-[#1A1817]'
                           }`}
                         >
                           {isAdded ? 'Selected ✓' : '+ Select'}
@@ -186,9 +143,9 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
                   onClose();
                   onOpenQuiz();
                 }}
-                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 bg-[#C5A880] hover:bg-[#B5966D] text-white text-xs font-semibold tracking-widest uppercase py-3.5 px-6 rounded-full shadow-sm transition-all cursor-pointer"
+                className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 bg-[#1A1817] hover:bg-[#332E2B] text-white text-xs font-semibold tracking-widest uppercase py-3.5 px-6 rounded-full shadow-sm transition-all cursor-pointer"
               >
-                <Shirt className="w-4 h-4" />
+                <Shirt className="w-4 h-4 text-[#C5A880]" />
                 <span>Style This Look For Me</span>
               </button>
 
@@ -197,12 +154,12 @@ export const LookDetailModal: React.FC<LookDetailModalProps> = ({ look, onClose,
                 onClick={() => setSaved(!saved)}
                 className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs font-semibold tracking-wider uppercase py-3.5 px-5 rounded-full border transition-all cursor-pointer ${
                   saved
-                    ? 'bg-[#FAF5EE] border-[#B85D43] text-[#B85D43]'
+                    ? 'bg-[#FAF5EE] border-[#9E6E38] text-[#9E6E38]'
                     : 'border-[#D9CEBE] hover:border-[#1A1817] text-[#1A1817] bg-white'
                 }`}
               >
-                <Heart className={`w-4 h-4 ${saved ? 'fill-current text-[#B85D43]' : ''}`} />
-                <span>{saved ? 'Saved to Closet' : 'Save Look'}</span>
+                <Heart className={`w-4 h-4 ${saved ? 'fill-current text-[#9E6E38]' : ''}`} />
+                <span>{saved ? 'Saved' : 'Save Look'}</span>
               </button>
             </div>
 

@@ -133,7 +133,7 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
   return (
     <section
       id="motion"
-      className="relative z-40 min-h-[100dvh] py-12 sm:py-16 lg:py-20 bg-[#121212] text-[#FAF8F5] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.25)]"
+      className="relative z-40 min-h-0 md:min-h-[100dvh] py-8 sm:py-16 lg:py-20 bg-[#121212] text-[#FAF8F5] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.25)]"
     >
       {/* Background Subtle Gradient Lighting */}
       <div
@@ -148,30 +148,29 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-4 sm:mb-6 lg:mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3 sm:gap-6 mb-3 sm:mb-6 lg:mb-8">
           <div>
-            <p className="text-[11px] sm:text-[12px] tracking-[0.25em] font-semibold text-[#B88F58] uppercase mb-1.5">
+            <p className="text-[10px] sm:text-[12px] tracking-[0.25em] font-semibold text-[#B88F58] uppercase mb-1">
               HOY IN MOTION
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] tracking-tight leading-none uppercase">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] tracking-tight leading-none uppercase">
               <span className="font-['Cinzel'] font-normal tracking-[0.02em] text-[#FAF8F5]">WATCH STYLE</span>{' '}
               <span className="font-['Cinzel'] font-bold text-[#B88F58]">COME ALIVE</span>
             </h2>
           </div>
 
           <div className="lg:max-w-xs xl:max-w-sm lg:text-right lg:pb-2">
-            <p className="text-[#C8C4BE] text-sm sm:text-[15px] font-sans-body font-normal leading-relaxed">
+            <p className="text-[#C8C4BE] text-xs sm:text-[15px] font-sans-body font-normal leading-relaxed">
               A quick look at how a HOY outfit comes together, start to finish.
             </p>
           </div>
         </div>
 
         {/* Inline Video Player Card */}
-        <div className="mt-2 sm:mt-4">
+        <div className="mt-1 sm:mt-4">
           <div
             ref={containerRef}
-            className="group relative mx-auto overflow-hidden rounded-[20px] bg-black shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-white/10"
-            style={{ width: '100%', maxWidth: 'min(720px, -515.556px + 177.778svh)', aspectRatio: '16 / 9' }}
+            className="group relative mx-auto overflow-hidden rounded-[16px] sm:rounded-[20px] bg-black shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-white/10 w-full max-w-[720px] aspect-video"
           >
             <div className="relative h-full w-full overflow-hidden bg-black">
               
@@ -194,10 +193,10 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" aria-hidden="true" />
 
               {/* Top Left Live Badge */}
-              <div className="absolute left-3.5 top-3.5 flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md sm:left-5 sm:top-5 pointer-events-none z-10">
-                <span className="relative flex size-2">
+              <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md sm:left-5 sm:top-5 pointer-events-none z-10">
+                <span className="relative flex size-1.5 sm:size-2">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#AB8850] opacity-70"></span>
-                  <span className="relative inline-flex size-2 rounded-full bg-[#AB8850]"></span>
+                  <span className="relative inline-flex size-1.5 sm:size-2 rounded-full bg-[#AB8850]"></span>
                 </span>
                 HOY in motion
               </div>
@@ -206,11 +205,11 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
               <button
                 type="button"
                 onClick={handleOpenFullSize}
-                className="absolute right-3.5 top-3.5 flex items-center gap-1.5 rounded-full border border-white/30 bg-black/70 px-4 py-2 text-xs font-bold text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#B88F58] hover:text-black sm:right-5 sm:top-5 cursor-pointer z-20"
+                className="absolute right-3 top-3 flex items-center gap-1 rounded-full border border-white/30 bg-black/70 px-3 py-1 sm:px-4 sm:py-2 text-[10px] sm:text-xs font-bold text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-[#B88F58] hover:text-black sm:right-5 sm:top-5 cursor-pointer z-20"
                 title="View in full size"
                 aria-label="View video in full size"
               >
-                <Maximize2 className="size-4" aria-hidden="true" />
+                <Maximize2 className="size-3.5 sm:size-4" aria-hidden="true" />
                 <span>Full Size</span>
               </button>
 
@@ -218,48 +217,48 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
               <div className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={togglePlay}>
                 <button
                   type="button"
-                  className={`flex size-14 items-center justify-center rounded-full border border-white/30 bg-black/60 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-[#AB8850] hover:text-black ${
+                  className={`flex size-12 sm:size-14 items-center justify-center rounded-full border border-white/30 bg-black/60 text-white shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-[#AB8850] hover:text-black ${
                     isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
                   }`}
                   aria-label={isPlaying ? 'Pause video' : 'Play video'}
                 >
                   {isPlaying ? (
-                    <Pause className="size-6 text-white" />
+                    <Pause className="size-5 sm:size-6 text-white" />
                   ) : (
-                    <Play className="size-6 translate-x-0.5 fill-current" />
+                    <Play className="size-5 sm:size-6 translate-x-0.5 fill-current" />
                   )}
                 </button>
               </div>
 
               {/* Bottom Controls & Title Bar */}
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-3 sm:p-6 pointer-events-none">
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-2.5 sm:p-6 pointer-events-none">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#AB8850] sm:text-xs">The process</p>
-                  <h3 className="mt-0.5 font-['Cinzel'] text-sm font-semibold tracking-[-0.02em] text-white sm:mt-1 sm:text-2xl lg:text-3xl">HOY IN MOTION</h3>
+                  <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#AB8850] sm:text-xs">The process</p>
+                  <h3 className="mt-0.5 font-['Cinzel'] text-xs font-semibold tracking-[-0.02em] text-white sm:text-2xl lg:text-3xl">HOY IN MOTION</h3>
                 </div>
-                <div className="flex items-center gap-2 pointer-events-auto">
+                <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto">
                   <button
                     type="button"
                     onClick={toggleMute}
-                    className="flex size-9 sm:size-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-white/20 cursor-pointer"
+                    className="flex size-7 sm:size-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-white/20 cursor-pointer"
                     aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
                     title={isMuted ? 'Unmute audio' : 'Mute audio'}
                   >
                     {isMuted ? (
-                      <VolumeX className="size-4 sm:size-5" aria-hidden="true" />
+                      <VolumeX className="size-3.5 sm:size-5" aria-hidden="true" />
                     ) : (
-                      <Volume2 className="size-4 sm:size-5 text-[#AB8850]" aria-hidden="true" />
+                      <Volume2 className="size-3.5 sm:size-5 text-[#AB8850]" aria-hidden="true" />
                     )}
                   </button>
 
                   <button
                     type="button"
                     onClick={handleOpenFullSize}
-                    className="flex size-9 sm:size-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-white/20 cursor-pointer"
+                    className="flex size-7 sm:size-10 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white backdrop-blur-md transition hover:bg-white/20 cursor-pointer"
                     aria-label="Expand to full size"
                     title="Expand to full size"
                   >
-                    <Maximize2 className="size-4 sm:size-5" aria-hidden="true" />
+                    <Maximize2 className="size-3.5 sm:size-5" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -270,13 +269,12 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
           {/* Subnote Card */}
           <div
             onClick={onOpenQuiz}
-            className="mx-auto mt-4 sm:mt-5 flex items-center gap-3 sm:gap-4 rounded-xl border border-white/10 bg-white/[0.04] px-4 sm:px-5 py-2.5 sm:py-3 cursor-pointer hover:bg-white/[0.08] transition-colors"
-            style={{ width: '100%', maxWidth: 'min(720px, -515.556px + 177.778svh)' }}
+            className="mx-auto mt-3 sm:mt-5 flex items-center gap-2.5 sm:gap-4 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 sm:px-5 py-2 sm:py-3 cursor-pointer hover:bg-white/[0.08] transition-colors w-full max-w-[720px]"
           >
-            <div className="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-xl border border-[#FFFFFF]/15 bg-[#FFFFFF]/5">
-              <Sparkles className="size-4 sm:size-5 text-[#AB8850]" />
+            <div className="flex size-7 sm:size-10 shrink-0 items-center justify-center rounded-lg sm:rounded-xl border border-[#FFFFFF]/15 bg-[#FFFFFF]/5">
+              <Sparkles className="size-3.5 sm:size-5 text-[#AB8850]" />
             </div>
-            <p className="text-sm leading-6 text-[#FFFFFF]/85 sm:text-base sm:leading-7">
+            <p className="text-xs leading-tight text-[#FFFFFF]/85 sm:text-base sm:leading-7">
               From colour to silhouette to that final accessory — nothing here is random. Every pick is made to work for you.
             </p>
           </div>
@@ -284,7 +282,7 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
 
       </div>
 
-      {/* FULL SCREEN LIGHTBOX MODAL MATCHING ATTACHED REFERENCE IMAGE EXACTLY */}
+      {/* FULL SCREEN LIGHTBOX MODAL */}
       {isModalOpen && createPortal(
         <div
           id="video-fullscreen-modal"
@@ -352,7 +350,7 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
               )}
             </div>
 
-            {/* Bottom Video Control Bar Matching Reference Image */}
+            {/* Bottom Video Control Bar */}
             <div className="bg-[#121110] border-t border-[#26221F] w-full flex flex-col">
               {/* Gold Progress / Seek Bar */}
               <div className="relative w-full h-1.5 bg-[#282420] group/seek cursor-pointer">
@@ -413,7 +411,7 @@ export const HoyInMotion: React.FC<HoyInMotionProps> = ({ onOpenQuiz }) => {
             </div>
           </div>
 
-          {/* Bottom Spacer / Margin */}
+          {/* Bottom Spacer */}
           <div className="h-2" />
         </div>,
         document.body
