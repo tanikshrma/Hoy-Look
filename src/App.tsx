@@ -11,7 +11,6 @@ import { Footer } from './components/Footer';
 import { LookDetailModal } from './components/LookDetailModal';
 import { StyleQuizModal } from './components/StyleQuizModal';
 import { PlanModal } from './components/PlanModal';
-import { WhatsAppAuthModal } from './components/WhatsAppAuthModal';
 import { OnboardingContainer } from './components/onboarding/OnboardingContainer';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LookCapsule, StylePlan } from './types';
@@ -34,7 +33,7 @@ function MainAppContent() {
   const [selectedPlan, setSelectedPlan] = useState<{ plan: StylePlan; isAnnual: boolean } | null>(null);
   const isTransitioningRef = useRef(false);
 
-  const { isAuthModalOpen, closeAuthModal, startOnboarding, setOnboardingStep } = useAuth();
+  const { startOnboarding, setOnboardingStep } = useAuth();
 
   // Initialize single global Lenis instance & scroll listener
   useEffect(() => {
@@ -191,15 +190,6 @@ function MainAppContent() {
           onOpenQuiz={handleOpenQuiz}
         />
       )}
-
-      {/* WhatsApp OTP Sign-In Authentication Modal */}
-      <WhatsAppAuthModal
-        isOpen={isAuthModalOpen}
-        onClose={closeAuthModal}
-        onSuccess={() => {
-          startOnboarding();
-        }}
-      />
 
       {/* Onboarding Flow Container */}
       <OnboardingContainer

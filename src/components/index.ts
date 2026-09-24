@@ -10,5 +10,4 @@ export * from './Footer';
 export * from './LookDetailModal';
 export * from './StyleQuizModal';
 export * from './PlanModal';
-export * from './WhatsAppAuthModal';
 export * from './onboarding/OnboardingContainer';
