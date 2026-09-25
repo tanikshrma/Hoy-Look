@@ -46,8 +46,6 @@ export function setupStackedSections(sectionIds: string[]) {
 
   // Sections that transition continuously into the next section without stopping
   const unpinnedSectionIds = [
-    'hero-section',       // Hero -> HOW IT WORKS
-    'plans',              // STYLE PLANS -> READY WHEN YOU ARE
     'ready-when-you-are', // READY WHEN YOU ARE -> Footer
   ];
 

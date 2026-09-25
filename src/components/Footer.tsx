@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz, onOpenPolicy }) => {
   };
 
   return (
-    <footer id="main-footer" className="relative z-[80] bg-[#181615] text-[#FAF8F5] pt-8 sm:pt-20 pb-6 sm:pb-12 border-t border-[#2B2622] shadow-[0_-25px_60px_rgba(0,0,0,0.35)]">
+    <footer id="main-footer" className="relative z-50 bg-[#181615] text-[#FAF8F5] pt-8 sm:pt-20 pb-6 sm:pb-12 border-t border-[#2B2622] shadow-[0_-25px_60px_rgba(0,0,0,0.35)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Content Grid: Logo + 2 Navigation Columns */}

@@ -85,7 +85,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
   return (
     <section
       id="plans"
-      className="relative z-[60] min-h-0 md:min-h-[100dvh] py-8 sm:py-16 lg:py-20 bg-[#B88F58] text-[#1A1817] overflow-hidden flex flex-col justify-center"
+      className="relative z-30 min-h-0 md:min-h-[100dvh] py-8 sm:py-16 lg:py-20 bg-[#B88F58] text-[#1A1817] overflow-hidden flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.18)]"
     >
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
         
