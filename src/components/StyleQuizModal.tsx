@@ -373,7 +373,7 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
                 <div>
                   <div className="text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.18em] font-bold text-[#D48360] mb-0.5">
-                    YASHIKA'S CLUB
+                    THE HOY CLUB
                   </div>
                   <h4 className="text-sm sm:text-base font-extrabold text-white">Insider</h4>
                   <div className="flex items-baseline gap-1 my-1">

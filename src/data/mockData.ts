@@ -133,7 +133,7 @@ export const STYLE_PLANS: StylePlan[] = [
   },
   {
     id: 'insider',
-    tier: "YASHIKA'S CLUB",
+    tier: 'THE HOY CLUB',
     name: 'Insider',
     subtitle: 'Our most popular club tier',
     monthlyPrice: '999',
@@ -150,7 +150,7 @@ export const STYLE_PLANS: StylePlan[] = [
   },
   {
     id: 'icon',
-    tier: "YASHIKA'S CLUB",
+    tier: 'THE HOY CLUB',
     name: 'Icon',
     subtitle: 'The ultimate VIP wardrobe experience',
     monthlyPrice: '1999',
