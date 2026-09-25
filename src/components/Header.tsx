@@ -83,9 +83,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection, a
           <nav className="hidden md:flex items-center gap-7 lg:gap-9">
             {[
               { label: 'How It Works', href: '#process', sectionIndex: 1 },
-              { label: 'Selected Looks', href: '#looks', sectionIndex: 2 },
-              { label: 'In Motion', href: '#motion', sectionIndex: 3 },
-              { label: 'Style Plans', href: '#plans', sectionIndex: 4 },
+              { label: 'Style Plans', href: '#plans', sectionIndex: 2 },
             ].map((item) => (
               <a
                 key={item.label}

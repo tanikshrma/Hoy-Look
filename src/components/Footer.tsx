@@ -45,16 +45,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz, onOpenPolicy }) => {
                 </a>
               </li>
               <li>
-                <a href="#looks" className="hover:text-white transition-colors">
-                  Selected Looks
-                </a>
-              </li>
-              <li>
-                <a href="#motion" className="hover:text-white transition-colors">
-                  In Motion
-                </a>
-              </li>
-              <li>
                 <a href="#plans" className="hover:text-white transition-colors">
                   Style Plans
                 </a>

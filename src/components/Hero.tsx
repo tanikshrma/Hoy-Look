@@ -175,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
           <div className="order-1 lg:col-span-6 xl:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left relative z-10">
             
             {/* Eyebrow */}
-            <div className="flex items-center gap-2 mb-0.5 sm:mb-2">
+            <div className="flex items-center gap-2 mb-0.5 sm:mb-0">
               <span className="text-[9.5px] xs:text-[10.5px] sm:text-xs tracking-[0.24em] font-semibold text-[#8C7A6B] uppercase">
                 YOUR STYLE. YOUR STORY. YOUR WAY.
               </span>

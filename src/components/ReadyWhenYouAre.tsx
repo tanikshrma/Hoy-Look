@@ -9,7 +9,7 @@ export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenQuiz }) 
   return (
     <section
       id="ready-when-you-are"
-      className="relative z-[70] min-h-0 md:min-h-[100dvh] w-full py-10 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col justify-center items-center text-center bg-[#BE7A5B] shadow-[0_-20px_50px_rgba(0,0,0,0.18)] m-0 border-0"
+      className="relative z-[70] min-h-0 md:min-h-[70vh] w-full py-10 sm:py-20 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col justify-center items-center text-center bg-[#BE7A5B] shadow-[0_-20px_50px_rgba(0,0,0,0.18)] m-0 border-0"
     >
       {/* Background HOY Logo White Watermark */}
       <div

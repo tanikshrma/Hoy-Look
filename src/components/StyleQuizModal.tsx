@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, ArrowRight, ArrowLeft, CheckCircle2, UserCheck, Heart } from 'lucide-react';
+import { X, Check, ArrowRight, ArrowLeft, UserCheck, Mail, ShieldCheck } from 'lucide-react';
 import { STYLE_PLANS } from '../data/mockData';
 import { StylePlan } from '../types';
+import { getLenis } from '../lib/lenis';
 
 interface StyleQuizModalProps {
   isOpen: boolean;
@@ -23,9 +24,17 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
       if (e.key === 'Escape') handleReset();
     };
     if (isOpen) {
+      const lenis = getLenis();
+      lenis?.stop();
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        lenis?.start();
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -54,43 +63,40 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
       role="dialog"
       aria-modal="true"
       aria-labelledby="quiz-modal-title"
-      className="fixed inset-0 z-[10000] overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-2.5 xs:p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100000] overflow-y-auto overscroll-contain bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 animate-in fade-in duration-200"
       onClick={handleReset}
     >
       <div
         id="style-quiz-modal-container"
-        className="relative bg-[#FAF8F5] rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[96vh] sm:max-h-[92vh] overflow-y-auto shadow-2xl border border-[#EAE3DA] text-[#1A1817] p-3.5 xs:p-4.5 sm:p-7"
+        className="relative bg-[#FAF8F5] rounded-3xl w-full max-w-[480px] shadow-2xl border border-[#EAE3DA] text-[#1A1817] p-5 sm:p-7 no-scrollbar my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           id="close-quiz-modal-btn"
           onClick={handleReset}
-          className="absolute top-3 right-3 sm:top-5 sm:right-5 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#F0EAE1] hover:bg-[#E2D6C6] text-[#1A1817] flex items-center justify-center transition-colors z-20 cursor-pointer"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#F0EAE1] hover:bg-[#E2D6C6] text-[#1A1817] flex items-center justify-center transition-colors z-20 cursor-pointer shadow-xs"
           aria-label="Close Style Quiz"
         >
-          <X className="w-4 h-4 sm:w-5 sm:h-5" />
+          <X className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
         </button>
 
         {!submitted ? (
           <div>
             {/* Header */}
-            <div className="mb-2 sm:mb-4 pr-7 sm:pr-0">
-              <div className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-semibold text-[#8C7A6B] mb-0.5 sm:mb-1">
-                Personal Style Consultation
+            <div className="mb-2.5 sm:mb-3 pr-9">
+              <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.22em] font-semibold text-[#8C7A6B] mb-0.5">
+                PERSONAL STYLE CONSULTATION
               </div>
-              <h3 id="quiz-modal-title" className="font-serif-display text-base xs:text-lg sm:text-2xl font-bold text-[#1A1817] leading-tight">
+              <h3 id="quiz-modal-title" className="font-serif-display text-lg sm:text-xl font-bold text-[#1A1817] uppercase tracking-wide leading-tight">
                 {step === 1 && 'Which occasions do you dress for most?'}
                 {step === 2 && 'Choose your primary style aesthetic'}
                 {step === 3 && 'Select your ideal silhouette & palette'}
               </h3>
-              <p className="text-[10px] sm:text-xs text-[#6E645D] font-sans-body mt-0.5 hidden xs:block">
-                Our editorial team tailors your capsules to match these dimensions.
-              </p>
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full bg-[#EAE2D8] h-1 sm:h-1.5 rounded-full mb-3 sm:mb-5 overflow-hidden">
+            <div className="w-full bg-[#EAE2D8] h-1 sm:h-1.5 rounded-full mb-3.5 sm:mb-4 overflow-hidden">
               <div
                 className="bg-[#C5A880] h-full transition-all duration-300 rounded-full"
                 style={{ width: `${(step / 3) * 100}%` }}
@@ -99,18 +105,18 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
             {/* Step 1: Occasions Selection */}
             {step === 1 && (
-              <div className="space-y-1.5 sm:space-y-3">
-                <p className="text-[10px] sm:text-xs font-semibold text-[#8C7A6B] uppercase tracking-wider">
-                  Select all that apply:
+              <div>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-[#8C7A6B] uppercase tracking-wider mb-2.5">
+                  SELECT ALL THAT APPLY:
                 </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 xs:gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
                   {[
                     { name: 'Office', desc: 'Boardrooms & Smart Business' },
                     { name: 'Date Night', desc: 'Intimate Dinners & Galas' },
                     { name: 'Brunch', desc: 'Weekend Cafés & Strolls' },
                     { name: 'Weekend', desc: 'Effortless Leisure & Errands' },
                     { name: 'Wedding', desc: 'Formal Guest & Receptions' },
-                    { name: 'Travel', desc: 'Resort Wear & Transit' }
+                    { name: 'Travel', desc: 'Resort Wear & Transit' },
                   ].map((occ) => {
                     const isSelected = occasions.includes(occ.name);
                     return (
@@ -118,19 +124,19 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                         key={occ.name}
                         type="button"
                         onClick={() => handleOccasionToggle(occ.name)}
-                        className={`p-2 xs:p-2.5 sm:p-3.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                        className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer min-h-[64px] sm:min-h-[70px] ${
                           isSelected
-                            ? 'bg-white border-[#C5A880] ring-2 ring-[#C5A880]/40 shadow-xs'
+                            ? 'bg-white border-[#C5A880] shadow-xs'
                             : 'bg-white border-[#EAE2D8] hover:border-[#D6C8B8]'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-0.5 sm:mb-1">
-                          <span className="font-serif-display font-bold text-xs sm:text-sm text-[#1A1817]">
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="font-serif-display font-bold text-xs sm:text-sm text-[#1A1817] uppercase">
                             {occ.name}
                           </span>
                           {isSelected && <Check className="w-3.5 h-3.5 text-[#B85D43]" />}
                         </div>
-                        <span className="text-[9px] sm:text-[10px] text-[#7A6F66] line-clamp-1">
+                        <span className="text-[9.5px] sm:text-[11px] text-[#7A6F66] leading-tight">
                           {occ.desc}
                         </span>
                       </button>
@@ -142,16 +148,16 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
             {/* Step 2: Aesthetic Mood Selection */}
             {step === 2 && (
-              <div className="space-y-1.5 sm:space-y-3">
-                <p className="text-[10px] sm:text-xs font-semibold text-[#8C7A6B] uppercase tracking-wider">
-                  Select the visual tone that resonates most:
+              <div>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-[#8C7A6B] uppercase tracking-wider mb-2.5">
+                  SELECT THE VISUAL TONE THAT RESONATES MOST:
                 </p>
-                <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
                   {[
                     { name: 'Minimalist Chic', desc: 'Clean lines, neutral palette & architectural cuts.' },
                     { name: 'Modern Classic', desc: 'Polished British tailoring & crisp shirting.' },
                     { name: 'Warm Mediterranean', desc: 'Terracotta, organic linen & relaxed drape.' },
-                    { name: 'Contemporary Monochrome', desc: 'Sharp contrast & high-fashion proportions.' }
+                    { name: 'Contemporary Monochrome', desc: 'Sharp contrast & high-fashion proportions.' },
                   ].map((item) => {
                     const isSelected = aesthetic === item.name;
                     return (
@@ -159,19 +165,19 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                         key={item.name}
                         type="button"
                         onClick={() => setAesthetic(item.name)}
-                        className={`p-2 xs:p-2.5 sm:p-4 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                        className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer min-h-[82px] sm:min-h-[92px] ${
                           isSelected
-                            ? 'bg-white border-[#C5A880] ring-2 ring-[#C5A880]/40 shadow-xs'
+                            ? 'bg-white border-[#C5A880] shadow-xs'
                             : 'bg-white border-[#EAE2D8] hover:border-[#D6C8B8]'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-serif-display font-bold text-xs sm:text-base text-[#1A1817] truncate">
+                        <div className="flex items-start justify-between mb-1">
+                          <span className="font-serif-display font-bold text-xs sm:text-sm text-[#1A1817] uppercase leading-tight line-clamp-1">
                             {item.name}
                           </span>
                           {isSelected && <Check className="w-3.5 h-3.5 text-[#B85D43] shrink-0 ml-1" />}
                         </div>
-                        <p className="text-[9px] sm:text-xs text-[#7A6F66] leading-tight line-clamp-2">
+                        <p className="text-[9.5px] sm:text-[11px] text-[#7A6F66] leading-snug line-clamp-2">
                           {item.desc}
                         </p>
                       </button>
@@ -183,35 +189,40 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
             {/* Step 3: Silhouette & Palette */}
             {step === 3 && (
-              <div className="space-y-2 sm:space-y-4">
+              <div className="space-y-3 sm:space-y-4">
+                {/* Preferred Palette */}
                 <div>
-                  <p className="text-[10px] sm:text-xs font-semibold text-[#8C7A6B] uppercase tracking-wider mb-1.5">
-                    Preferred Palette:
+                  <p className="text-[10px] sm:text-[11px] font-semibold text-[#8C7A6B] uppercase tracking-wider mb-2">
+                    PREFERRED PALETTE:
                   </p>
-                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
+                  <div className="grid grid-cols-3 gap-2">
                     {[
                       { name: 'Warm Neutrals', colors: ['#FAF5EE', '#C5A880', '#B85D43', '#2C221D'] },
                       { name: 'Monochrome', colors: ['#FFFFFF', '#B0A8A0', '#4A4540', '#121110'] },
-                      { name: 'Earth & Olive', colors: ['#EADBCE', '#8C7A6B', '#5A624E', '#2B2620'] }
+                      { name: 'Earth & Olive', colors: ['#EADBCE', '#8C7A6B', '#5A624E', '#2B2620'] },
                     ].map((p) => {
                       const isSelected = palette.startsWith(p.name);
                       return (
                         <button
                           key={p.name}
                           type="button"
-                          onClick={() => setPalette(p.name)}
-                          className={`p-1.5 xs:p-2 sm:p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                          onClick={() => setPalette(p.name === 'Warm Neutrals' ? 'Warm Neutrals & Terracotta' : p.name)}
+                          className={`p-2 sm:p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer min-h-[56px] sm:min-h-[62px] ${
                             isSelected
-                              ? 'bg-white border-[#C5A880] ring-2 ring-[#C5A880]/40'
-                              : 'bg-white border-[#EAE2D8]'
+                              ? 'bg-white border-[#C5A880] shadow-xs'
+                              : 'bg-white border-[#EAE2D8] hover:border-[#D6C8B8]'
                           }`}
                         >
                           <div className="flex items-center gap-1 mb-1">
                             {p.colors.map((c, i) => (
-                              <span key={i} className="w-3 h-3 sm:w-4 sm:h-4 rounded-full border border-black/10" style={{ backgroundColor: c }} />
+                              <span
+                                key={i}
+                                className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-black/10 shrink-0"
+                                style={{ backgroundColor: c }}
+                              />
                             ))}
                           </div>
-                          <span className="text-[9.5px] sm:text-xs font-bold text-[#1A1817] block truncate">
+                          <span className="text-[10px] sm:text-[11px] font-semibold text-[#1A1817] leading-tight">
                             {p.name}
                           </span>
                         </button>
@@ -220,23 +231,33 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                   </div>
                 </div>
 
+                {/* Preferred Silhouette */}
                 <div>
-                  <p className="text-[10px] sm:text-xs font-semibold text-[#8C7A6B] uppercase tracking-wider mb-1.5">
-                    Preferred Silhouette:
+                  <p className="text-[10px] sm:text-[11px] font-semibold text-[#8C7A6B] uppercase tracking-wider mb-2">
+                    PREFERRED SILHOUETTE:
                   </p>
-                  <div className="grid grid-cols-2 gap-1.5 sm:gap-2.5">
-                    {['Tailored & Fluid', 'Structured & Oversized', 'Body-Skimming & Columnar', 'Relaxed & Breathable'].map((sil) => {
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      'Tailored & Fluid',
+                      'Structured & Oversized',
+                      'Body-Skimming & Columnar',
+                      'Relaxed & Breathable',
+                    ].map((sil) => {
                       const isSelected = silhouette === sil;
                       return (
                         <button
                           key={sil}
                           type="button"
                           onClick={() => setSilhouette(sil)}
-                          className={`p-1.5 xs:p-2 sm:p-2.5 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
-                            isSelected ? 'bg-white border-[#C5A880] ring-2 ring-[#C5A880]/40' : 'bg-white border-[#EAE2D8]'
+                          className={`p-2.5 sm:p-3 rounded-xl border text-left flex items-center justify-between transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-white border-[#C5A880] shadow-xs'
+                              : 'bg-white border-[#EAE2D8] hover:border-[#D6C8B8]'
                           }`}
                         >
-                          <span className="text-[10px] sm:text-xs font-bold text-[#1A1817] truncate">{sil}</span>
+                          <span className="text-[11px] sm:text-xs font-semibold text-[#1A1817] leading-tight">
+                            {sil}
+                          </span>
                           {isSelected && <Check className="w-3.5 h-3.5 text-[#B85D43] shrink-0 ml-1" />}
                         </button>
                       );
@@ -246,16 +267,16 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
               </div>
             )}
 
-            {/* Navigation Buttons */}
-            <div className="mt-3 sm:mt-5 pt-2.5 sm:pt-4 border-t border-[#EAE2D8] flex items-center justify-between">
+            {/* Navigation Bottom Bar */}
+            <div className="mt-3.5 sm:mt-5 pt-3 sm:pt-4 border-t border-[#EAE2D8] flex items-center justify-between">
               {step > 1 ? (
                 <button
                   type="button"
                   onClick={() => setStep(step - 1)}
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#665D56] hover:text-[#1A1817] cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#665D56] hover:text-[#1A1817] py-2 px-1 cursor-pointer"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Previous</span>
+                  <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <span>PREVIOUS</span>
                 </button>
               ) : (
                 <div />
@@ -265,70 +286,66 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                 <button
                   type="button"
                   onClick={() => setStep(step + 1)}
-                  className="inline-flex items-center gap-1.5 bg-[#1A1817] hover:bg-[#38312D] text-white text-[11px] sm:text-xs font-semibold tracking-widest uppercase px-5 py-2.5 sm:px-6 sm:py-3 rounded-full cursor-pointer"
+                  className="inline-flex items-center gap-1.5 bg-[#1A1817] hover:bg-[#38312D] text-white text-[11px] sm:text-xs font-semibold tracking-widest uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-xs cursor-pointer"
                 >
-                  <span>Continue</span>
+                  <span>CONTINUE</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               ) : (
                 <button
                   type="button"
                   onClick={handleComplete}
-                  className="inline-flex items-center gap-1.5 bg-[#C5A880] hover:bg-[#B3946B] text-white text-[11px] sm:text-xs font-semibold tracking-widest uppercase px-5 py-2.5 sm:px-7 sm:py-3 rounded-full shadow-sm cursor-pointer"
+                  className="inline-flex items-center gap-1.5 bg-[#C5A880] hover:bg-[#B3946B] text-[#181716] text-[11px] sm:text-xs font-bold tracking-widest uppercase px-5 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-xs cursor-pointer"
                 >
                   <UserCheck className="w-3.5 h-3.5" />
-                  <span>Generate Profile</span>
+                  <span>GENERATE PROFILE</span>
                 </button>
               )}
             </div>
           </div>
         ) : showPlans ? (
-          /* Plan Selection View inside Modal showing ₹499 and ₹999 plans */
-          <div className="py-0.5 sm:py-2 space-y-2 sm:space-y-4 animate-in fade-in duration-300">
-            <div className="flex items-center justify-start border-b border-[#EAE2D8] pb-2 sm:pb-3">
+          /* Plan Selection View (Image 5) */
+          <div className="animate-in fade-in duration-300">
+            <div className="flex items-center justify-between pb-2 pr-8">
               <button
                 type="button"
                 onClick={() => setShowPlans(false)}
-                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] transition-colors cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Back to Capsule Profile</span>
               </button>
             </div>
 
-            <div className="text-center max-w-md mx-auto">
-              <h3 className="font-serif-display text-base xs:text-lg sm:text-2xl font-bold text-[#1A1817]">
-                Select Your Style Plan
+            <div className="text-center my-1.5">
+              <h3 className="font-serif-display text-lg sm:text-2xl font-bold text-[#1A1817] uppercase tracking-wide">
+                SELECT YOUR STYLE PLAN
               </h3>
-              <p className="mt-0.5 text-[10px] sm:text-xs text-[#665D56] font-sans-body">
+              <p className="mt-0.5 text-[11px] sm:text-xs text-[#665D56] font-sans-body">
                 Curated for your {aesthetic} capsule with Yashika.
               </p>
             </div>
 
-            {/* Plans Grid: ₹499 and ₹999 side-by-side on all screens without scrolling */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 max-w-xl mx-auto pt-1">
-              {/* ₹499 Explorer Plan */}
-              <div className="bg-white rounded-2xl sm:rounded-[24px] p-2.5 xs:p-3 sm:p-5 border border-[#E0D7CC] flex flex-col justify-between text-left transition-all">
+            {/* Plans Grid: 2 side-by-side cards */}
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 my-3 sm:my-4">
+              {/* Explorer */}
+              <div className="bg-white rounded-2xl p-3 sm:p-4 border border-[#E0D7CC] flex flex-col justify-between text-left">
                 <div>
-                  <div className="text-[8px] sm:text-[10px] uppercase tracking-[0.18em] font-bold text-[#857C74] mb-0.5">
+                  <div className="text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.18em] font-bold text-[#857C74] mb-0.5">
                     OPEN TO ALL
                   </div>
-                  <h4 className="text-xs xs:text-sm sm:text-xl font-extrabold text-[#1A1817]">Explorer</h4>
-                  <p className="text-[8.5px] sm:text-xs text-[#7A7169] mt-0.5 mb-1 hidden xs:block">
-                    For regular outfit updates
-                  </p>
-
-                  <div className="flex items-baseline gap-0.5 my-0.5 sm:my-2">
-                    <span className="text-lg xs:text-xl sm:text-3xl font-black text-[#1A1817]">₹499</span>
-                    <span className="text-[9px] sm:text-xs text-[#7A7169]">/mo</span>
+                  <h4 className="text-sm sm:text-base font-extrabold text-[#1A1817]">Explorer</h4>
+                  <div className="flex items-baseline gap-1 my-1">
+                    <span className="text-lg sm:text-2xl font-black text-[#1A1817]">₹499</span>
+                    <span className="text-[10px] text-[#7A7169]">/mo</span>
                   </div>
 
-                  <ul className="space-y-1 border-t border-black/5 pt-1.5 my-1.5 sm:my-3 text-[8.5px] xs:text-[9.5px] sm:text-xs text-[#524B44]">
-                    <li className="flex items-start gap-1 leading-tight">
+                  <ul className="space-y-1.5 border-t border-black/5 pt-2 my-2 text-[10px] sm:text-[11px] text-[#524B44]">
+                    <li className="flex items-start gap-1.5">
                       <span className="text-[#857C74] font-bold shrink-0">✓</span>
                       <span>50 looks with links</span>
                     </li>
-                    <li className="flex items-start gap-1 leading-tight">
+                    <li className="flex items-start gap-1.5">
                       <span className="text-[#857C74] font-bold shrink-0">✓</span>
                       <span>From own wardrobe</span>
                     </li>
@@ -337,49 +354,43 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
                 <button
                   type="button"
-                  id="modal-select-explorer-btn"
                   onClick={() => {
                     const explorerPlan = STYLE_PLANS.find((p) => p.id === 'explorer');
                     handleReset();
                     onPlanSelect(explorerPlan);
                   }}
-                  className="w-full text-center bg-[#1A1817] hover:bg-[#2C2825] active:bg-black text-white font-extrabold text-[8.5px] xs:text-[9.5px] sm:text-xs tracking-wider uppercase py-2 sm:py-3 px-1 sm:px-4 rounded-full transition-all duration-200 cursor-pointer mt-1"
+                  className="w-full text-center bg-[#1A1817] hover:bg-[#2C2825] text-white font-bold text-[9.5px] sm:text-[10.5px] tracking-wider uppercase py-2 sm:py-2.5 px-2 rounded-full transition-all cursor-pointer mt-2"
                 >
                   CHOOSE EXPLORER
                 </button>
               </div>
 
-              {/* ₹999 Insider Plan (Most Popular) */}
-              <div className="relative bg-[#181716] text-white rounded-2xl sm:rounded-[24px] p-2.5 xs:p-3 sm:p-5 border-2 border-[#C5A880]/40 flex flex-col justify-between text-left transition-all">
-                {/* Most Popular Badge */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#C5A880] text-[#181716] text-[7.5px] sm:text-[10px] font-black uppercase tracking-[0.16em] px-2 py-0.5 rounded-full whitespace-nowrap border border-[#FAF9F7]/20">
+              {/* Insider */}
+              <div className="relative bg-[#181716] text-white rounded-2xl p-3 sm:p-4 border-2 border-[#C5A880]/60 flex flex-col justify-between text-left">
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#C5A880] text-[#181716] text-[8px] sm:text-[8.5px] font-black uppercase tracking-[0.18em] px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-xs">
                   MOST POPULAR
                 </div>
 
                 <div>
-                  <div className="text-[8px] sm:text-[10px] uppercase tracking-[0.18em] font-bold text-[#D48360] mb-0.5">
+                  <div className="text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.18em] font-bold text-[#D48360] mb-0.5">
                     YASHIKA'S CLUB
                   </div>
-                  <h4 className="text-xs xs:text-sm sm:text-xl font-extrabold text-white">Insider</h4>
-                  <p className="text-[8.5px] sm:text-xs text-[#A89E93] mt-0.5 mb-1 hidden xs:block">
-                    Our most popular tier
-                  </p>
-
-                  <div className="flex items-baseline gap-0.5 my-0.5 sm:my-2">
-                    <span className="text-lg xs:text-xl sm:text-3xl font-black text-white">₹999</span>
-                    <span className="text-[9px] sm:text-xs text-[#A89E93]">/mo</span>
+                  <h4 className="text-sm sm:text-base font-extrabold text-white">Insider</h4>
+                  <div className="flex items-baseline gap-1 my-1">
+                    <span className="text-lg sm:text-2xl font-black text-white">₹999</span>
+                    <span className="text-[10px] text-[#A89E93]">/mo</span>
                   </div>
 
-                  <ul className="space-y-1 border-t border-white/10 pt-1.5 my-1.5 sm:my-3 text-[8.5px] xs:text-[9.5px] sm:text-xs text-[#E5DCD2]">
-                    <li className="flex items-start gap-1 leading-tight">
+                  <ul className="space-y-1.5 border-t border-white/10 pt-2 my-2 text-[10px] sm:text-[11px] text-[#E5DCD2]">
+                    <li className="flex items-start gap-1.5">
                       <span className="text-[#C5A880] font-bold shrink-0">✓</span>
                       <span>100 looks with links</span>
                     </li>
-                    <li className="flex items-start gap-1 leading-tight">
+                    <li className="flex items-start gap-1.5">
                       <span className="text-[#C5A880] font-bold shrink-0">✓</span>
                       <span>From own wardrobe</span>
                     </li>
-                    <li className="flex items-start gap-1 leading-tight">
+                    <li className="flex items-start gap-1.5">
                       <span className="text-[#C5A880] font-bold shrink-0">✓</span>
                       <span>Stylist session, mo</span>
                     </li>
@@ -388,20 +399,19 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
 
                 <button
                   type="button"
-                  id="modal-select-insider-btn"
                   onClick={() => {
                     const insiderPlan = STYLE_PLANS.find((p) => p.id === 'insider');
                     handleReset();
                     onPlanSelect(insiderPlan);
                   }}
-                  className="w-full text-center bg-[#C5A880] hover:bg-[#D4B890] active:bg-[#B59870] text-[#181716] font-extrabold text-[8.5px] xs:text-[9.5px] sm:text-xs tracking-wider uppercase py-2 sm:py-3 px-1 sm:px-4 rounded-full transition-all duration-200 cursor-pointer mt-1"
+                  className="w-full text-center bg-[#C5A880] hover:bg-[#D4B890] text-[#181716] font-bold text-[9.5px] sm:text-[10.5px] tracking-wider uppercase py-2 sm:py-2.5 px-2 rounded-full transition-all cursor-pointer mt-2"
                 >
                   CHOOSE INSIDER
                 </button>
               </div>
             </div>
 
-            {/* Footer link to view all plans */}
+            {/* Link to view all plans */}
             <div className="text-center pt-1">
               <button
                 type="button"
@@ -409,68 +419,68 @@ export const StyleQuizModal: React.FC<StyleQuizModalProps> = ({ isOpen, onClose,
                   handleReset();
                   onPlanSelect();
                 }}
-                className="text-[9.5px] sm:text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] underline underline-offset-4 cursor-pointer"
+                className="text-[11px] sm:text-xs font-semibold text-[#8C7A6B] hover:text-[#1A1817] underline underline-offset-4 cursor-pointer"
               >
                 Or view all plans (including Icon • ₹1999) on the page →
               </button>
             </div>
           </div>
         ) : (
-          /* Submission Result: Personalized Style Profile */
-          <div className="text-center py-1 sm:py-3 space-y-2.5 sm:space-y-4 animate-in fade-in zoom-in-95 duration-300">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#FAF5EE] border border-[#C5A880] text-[#B85D43] flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
+          /* Curated Profile Ready View (Image 4) */
+          <div className="text-center py-2 animate-in fade-in duration-300">
+            <div className="w-12 h-12 rounded-full border border-[#C5A880] text-[#B85D43] flex items-center justify-center mx-auto mb-2.5">
+              <Check className="w-6 h-6 text-[#B85D43]" />
             </div>
 
             <div>
-              <span className="text-[8.5px] sm:text-[10px] uppercase tracking-[0.25em] font-semibold text-[#8C7A6B] block mb-0.5">
-                Curated Profile Ready
+              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#8C7A6B] block mb-1">
+                CURATED PROFILE READY
               </span>
-              <h3 className="font-serif-display text-lg xs:text-xl sm:text-2xl font-bold text-[#1A1817]">
-                Your {aesthetic} Capsule
+              <h3 className="font-serif-display text-xl sm:text-2xl font-bold text-[#1A1817] uppercase tracking-wide leading-tight mb-1">
+                YOUR {aesthetic.toUpperCase()} CAPSULE
               </h3>
-              <p className="mt-0.5 text-[10px] sm:text-xs text-[#665D56] font-sans-body max-w-md mx-auto">
+              <p className="text-xs text-[#665D56] font-sans-body mb-3.5">
                 Paired with <strong className="text-[#1A1817]">Yashika</strong> (Lead Editorial Stylist).
               </p>
             </div>
 
             {/* Profile Summary Card */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-2.5 xs:p-3 sm:p-4 border border-[#ECE4DB] text-left max-w-md mx-auto space-y-1.5 sm:space-y-2 text-[10px] sm:text-xs text-[#524B45]">
-              <div className="flex justify-between pb-1 border-b border-[#F2ECE4]">
+            <div className="bg-white rounded-2xl p-3.5 sm:p-4 border border-[#ECE4DB] text-left max-w-md mx-auto space-y-2 text-xs sm:text-[13px] text-[#524B45] mb-4">
+              <div className="flex justify-between py-1 border-b border-[#F2ECE4]">
                 <span className="text-[#8C7A6B]">Occasions:</span>
-                <span className="font-bold text-[#1A1817] truncate ml-2">{occasions.join(', ')}</span>
+                <span className="font-bold text-[#1A1817]">{occasions.join(', ')}</span>
               </div>
-              <div className="flex justify-between pb-1 border-b border-[#F2ECE4]">
+              <div className="flex justify-between py-1 border-b border-[#F2ECE4]">
                 <span className="text-[#8C7A6B]">Aesthetic:</span>
-                <span className="font-bold text-[#1A1817] truncate ml-2">{aesthetic}</span>
+                <span className="font-bold text-[#1A1817]">{aesthetic}</span>
               </div>
-              <div className="flex justify-between pb-1 border-b border-[#F2ECE4]">
+              <div className="flex justify-between py-1 border-b border-[#F2ECE4]">
                 <span className="text-[#8C7A6B]">Palette:</span>
-                <span className="font-bold text-[#1A1817] truncate ml-2">{palette}</span>
+                <span className="font-bold text-[#1A1817]">{palette}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between py-1">
                 <span className="text-[#8C7A6B]">Silhouette:</span>
-                <span className="font-bold text-[#1A1817] truncate ml-2">{silhouette}</span>
+                <span className="font-bold text-[#1A1817]">{silhouette}</span>
               </div>
             </div>
 
-            {/* Next Action */}
-            <div className="pt-1 flex flex-col sm:flex-row items-center justify-center gap-2">
+            {/* Actions */}
+            <div className="flex flex-col items-center gap-2.5">
               <button
                 id="quiz-choose-plan-btn"
                 onClick={() => setShowPlans(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-[#C5A880] hover:bg-[#B3946B] text-white text-[11px] sm:text-xs font-semibold tracking-widest uppercase px-6 py-2.5 sm:py-3.5 rounded-full shadow-sm cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#C5A880] hover:bg-[#B3946B] text-[#181716] font-bold text-xs tracking-wider uppercase py-3 sm:py-3.5 px-6 rounded-full shadow-xs cursor-pointer"
               >
-                <span>Select Your Style Plan</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>SELECT YOUR STYLE PLAN</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
                 id="quiz-done-btn"
                 onClick={handleReset}
-                className="w-full sm:w-auto px-4 py-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#7A6F66] hover:text-[#1A1817] cursor-pointer"
+                className="py-1 text-[11px] font-semibold uppercase tracking-wider text-[#7A6F66] hover:text-[#1A1817] cursor-pointer"
               >
-                Close & Browse Looks
+                CLOSE & BROWSE LOOKS
               </button>
             </div>
           </div>

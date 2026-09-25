@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { X, ShieldCheck } from 'lucide-react';
+import { getLenis } from '../lib/lenis';
 
 interface LegalPolicyModalProps {
   policyKey: string | null;
@@ -78,13 +79,17 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({ policyKey, o
       if (e.key === 'Escape') onClose();
     };
     if (policyKey) {
+      const lenis = getLenis();
+      lenis?.stop();
+      const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        lenis?.start();
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     }
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
   }, [policyKey, onClose]);
 
   if (!policyKey) return null;
@@ -97,65 +102,65 @@ export const LegalPolicyModal: React.FC<LegalPolicyModalProps> = ({ policyKey, o
 
   return (
     <div
-      className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100000] overflow-y-auto overscroll-contain flex items-center justify-center bg-black/75 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="policy-modal-title"
     >
-      <div
-        className="relative w-full max-w-lg bg-[#FAF8F5] text-[#1E1E1E] rounded-3xl p-6 sm:p-8 shadow-2xl border border-[#E8DFC2] max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#E8DFC2]">
-          <div className="flex items-center gap-3">
-            <div className="size-10 rounded-full bg-[#181615] flex items-center justify-center shrink-0">
-              <ShieldCheck className="size-5 text-[#C5A880]" />
+      <div className="min-h-full flex items-center justify-center py-2 sm:py-6 w-full max-w-lg mx-auto">
+        <div
+          className="relative w-full bg-[#FAF8F5] text-[#1E1E1E] rounded-2xl sm:rounded-3xl p-5 sm:p-7 shadow-2xl border border-[#E8DFC2] max-h-[min(90dvh,calc(100vh-2rem))] flex flex-col overscroll-contain my-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-start justify-between gap-4 pb-3.5 border-b border-[#E8DFC2] shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="size-9 sm:size-10 rounded-full bg-[#181615] flex items-center justify-center shrink-0">
+                <ShieldCheck className="size-4.5 sm:size-5 text-[#C5A880]" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] font-semibold text-[#8C7A6B]">
+                  HOY LEGAL
+                </span>
+                <h3 id="policy-modal-title" className="font-serif-display text-lg sm:text-2xl font-bold text-[#181615]">
+                  {data.title}
+                </h3>
+              </div>
             </div>
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] font-semibold text-[#8C7A6B]">
-                HOY LEGAL
-              </span>
-              <h3 id="policy-modal-title" className="font-serif-display text-xl sm:text-2xl font-bold text-[#181615]">
-                {data.title}
-              </h3>
-            </div>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="size-8 sm:size-9 rounded-full bg-white hover:bg-[#EFE9DF] border border-[#DDD3C4] flex items-center justify-center text-[#554C42] hover:text-[#181615] transition-colors cursor-pointer shrink-0"
+              aria-label="Close dialog"
+            >
+              <X className="size-4" />
+            </button>
           </div>
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="size-9 rounded-full bg-white hover:bg-[#EFE9DF] border border-[#DDD3C4] flex items-center justify-center text-[#554C42] hover:text-[#181615] transition-colors cursor-pointer"
-            aria-label="Close dialog"
-          >
-            <X className="size-4" />
-          </button>
-        </div>
-
-        {/* Subtitle */}
-        <p className="mt-4 text-xs sm:text-sm font-medium text-[#7A6E63] leading-relaxed">
-          {data.subtitle}
-        </p>
-
-        {/* Content Paragraphs */}
-        <div className="mt-4 space-y-3">
-          {data.content.map((para, idx) => (
-            <p key={idx} className="text-xs sm:text-sm text-[#443D36] leading-relaxed font-sans-body">
-              {para}
+          {/* Subtitle & Content Paragraphs */}
+          <div className="overflow-y-auto overscroll-contain flex-1 py-3.5 space-y-3 pr-1">
+            <p className="text-xs sm:text-sm font-medium text-[#7A6E63] leading-relaxed">
+              {data.subtitle}
             </p>
-          ))}
-        </div>
+            {data.content.map((para, idx) => (
+              <p key={idx} className="text-xs sm:text-sm text-[#443D36] leading-relaxed font-sans-body">
+                {para}
+              </p>
+            ))}
+          </div>
 
-        {/* Close Action Button */}
-        <div className="mt-6 pt-4 border-t border-[#E8DFC2] flex justify-end">
-          <button
-            type="button"
-            onClick={onClose}
-            className="bg-[#181615] hover:bg-[#2C2825] text-white font-semibold text-xs tracking-wider uppercase px-6 py-2.5 rounded-full transition-colors cursor-pointer"
-          >
-            I Understand
-          </button>
+          {/* Close Action Button */}
+          <div className="pt-3.5 border-t border-[#E8DFC2] flex justify-end shrink-0">
+            <button
+              type="button"
+              onClick={onClose}
+              className="bg-[#181615] hover:bg-[#2C2825] text-white font-semibold text-xs tracking-wider uppercase px-6 py-2.5 rounded-full transition-colors cursor-pointer"
+            >
+              I Understand
+            </button>
+          </div>
         </div>
       </div>
     </div>

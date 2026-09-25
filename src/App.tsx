@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { SelectedLooks } from './components/SelectedLooks';
 import { HowItWorks } from './components/HowItWorks';
-import { HoyInMotion } from './components/HoyInMotion';
 import { StylePlans } from './components/StylePlans';
 import { ReadyWhenYouAre } from './components/ReadyWhenYouAre';
 import { Footer } from './components/Footer';
@@ -18,8 +16,6 @@ import { initLenis, getLenis, setupStackedSections } from './lib/lenis';
 const SECTIONS = [
   { id: 'hero-section', name: 'Hero' },
   { id: 'process', name: 'How It Works' },
-  { id: 'looks', name: 'Selected Looks' },
-  { id: 'motion', name: 'In Motion' },
   { id: 'plans', name: 'Style Plans' },
   { id: 'ready-when-you-are', name: 'Ready When You Are' },
 ];
@@ -129,22 +125,12 @@ function MainAppContent() {
         {/* Section 1: How It Works (The Process) */}
         <HowItWorks />
 
-        {/* Section 2: Selected Generated Looks & App View */}
-        <SelectedLooks
-          onOpenPlanModal={() => scrollToSection(4)}
-        />
-
-        {/* Section 3: HOY in Motion */}
-        <HoyInMotion
-          onOpenQuiz={handleOpenQuiz}
-        />
-
-        {/* Section 4: Style Plans */}
+        {/* Section 2: Style Plans */}
         <StylePlans
           onSelectPlan={(plan, isAnnual) => setSelectedPlan({ plan, isAnnual })}
         />
 
-        {/* Section 5: Ready When You Are CTA */}
+        {/* Section 3: Ready When You Are CTA */}
         <ReadyWhenYouAre onOpenQuiz={handleOpenQuiz} />
 
         {/* Footer */}
@@ -165,7 +151,7 @@ function MainAppContent() {
             if (chosenPlan) {
               setSelectedPlan({ plan: chosenPlan, isAnnual: false });
             } else {
-              scrollToSection(4);
+              scrollToSection(2);
             }
           }}
         />

@@ -34,9 +34,9 @@ export const PhotoAnalysisStep: React.FC<PhotoAnalysisStepProps> = ({ onNext, on
   }, [user]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-[#E8E2D9] p-6 sm:p-10 shadow-2xl animate-fade-in">
+    <div className="w-full max-w-2xl mx-auto bg-white rounded-2xl sm:rounded-3xl border border-[#E8E2D9] p-5 sm:p-10 shadow-2xl animate-fade-in">
       {/* Step Header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6 sm:mb-8 pr-6 sm:pr-0 pl-6 sm:pl-0">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF5EE] text-[#9E6E38] text-[11px] font-bold tracking-widest uppercase border border-[#E9DEC9] mb-3">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Step 3 of 4 • Neural Silhouette Biometrics</span>
