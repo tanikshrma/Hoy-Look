@@ -2,11 +2,10 @@ import React from 'react';
 import hoyLogoWhite from '../assets/HOY Logo White.avif';
 
 interface FooterProps {
-  onOpenQuiz: () => void;
   onOpenPolicy?: (key: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenQuiz, onOpenPolicy }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenPolicy }) => {
   const handlePolicyClick = (key: string) => {
     if (onOpenPolicy) {
       onOpenPolicy(key);
@@ -40,13 +39,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenQuiz, onOpenPolicy }) => {
             </h5>
             <ul className="space-y-1.5 sm:space-y-3 text-xs sm:text-sm text-[#D1C9C0] font-sans-body font-medium">
               <li>
-                <a href="#process" className="hover:text-white transition-colors">
-                  How It Works
+                <a href="#why-hoy" className="hover:text-white transition-colors">
+                  Why HOY
                 </a>
               </li>
               <li>
                 <a href="#plans" className="hover:text-white transition-colors">
                   Style Plans
+                </a>
+              </li>
+              <li>
+                <a href="#guarantee" className="hover:text-white transition-colors">
+                  Money-Back Guarantee
                 </a>
               </li>
             </ul>

@@ -8,7 +8,7 @@ import style4 from '../assets/style4.webp';
 import style5 from '../assets/style5.webp';
 
 interface HeroProps {
-  onOpenQuiz: () => void;
+  onOpenPricing: () => void;
   onExploreClick: () => void;
 }
 
@@ -23,7 +23,7 @@ interface OccasionItem {
   offset: { x: number; y: number };
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeOccasionId, setActiveOccasionId] = useState<string>('datenight');
   const [exitingOccasionId, setExitingOccasionId] = useState<string | null>(null);
@@ -316,14 +316,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
           
           {/* Mobile Layout (< sm): Stacked Centered Buttons with clear hierarchy */}
           <div className="flex flex-col items-center gap-1.5 w-full sm:hidden px-2">
-            {/* CREATE MY LOOK CTA Button */}
+            {/* GET STYLED NOW CTA Button -> pricing modal */}
             <button
               type="button"
               id="hero-create-look-btn-mobile"
-              onClick={onOpenQuiz}
+              onClick={onOpenPricing}
               className="w-full max-w-[280px] xs:max-w-[310px] inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs xs:text-[13px] font-bold tracking-widest uppercase py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body"
             >
-              <span>CREATE MY LOOK</span>
+              <span>GET STYLED NOW</span>
               <span className="text-base leading-none">→</span>
             </button>
 
@@ -349,14 +349,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
 
             {/* Action Cluster */}
             <div className="flex items-center justify-end gap-6 lg:gap-8 ml-auto shrink-0">
-              {/* CREATE MY LOOK CTA Button */}
+              {/* GET STYLED NOW CTA Button -> pricing modal */}
               <button
                 type="button"
                 id="hero-create-look-btn"
-                onClick={onOpenQuiz}
+                onClick={onOpenPricing}
                 className="inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs sm:text-sm font-bold tracking-widest uppercase px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body whitespace-nowrap shrink-0"
               >
-                <span>CREATE MY LOOK</span>
+                <span>GET STYLED NOW</span>
                 <span className="text-base leading-none shrink-0">→</span>
               </button>
 

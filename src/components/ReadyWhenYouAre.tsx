@@ -2,10 +2,10 @@ import React from 'react';
 import hoyLogoWhite from '../assets/HOY Logo White.avif';
 
 interface ReadyWhenYouAreProps {
-  onOpenQuiz: () => void;
+  onOpenPricing: () => void;
 }
 
-export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenQuiz }) => {
+export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenPricing }) => {
   return (
     <section
       id="ready-when-you-are"
@@ -54,7 +54,7 @@ export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenQuiz }) 
         <div className="mt-5 sm:mt-8 flex justify-center">
           <button
             id="ready-start-styling-btn"
-            onClick={onOpenQuiz}
+            onClick={onOpenPricing}
             className="group inline-flex items-center justify-center gap-2.5 bg-[#141210] hover:bg-black active:bg-[#1E1B18] text-white text-xs sm:text-sm font-bold tracking-[0.18em] uppercase py-3.5 px-8 sm:py-4 sm:px-9 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-103 cursor-pointer"
           >
             <span>START STYLING</span>

@@ -46,10 +46,10 @@ const POLICY_DETAILS: Record<string, { title: string; subtitle: string; content:
   },
   'Refund Policy': {
     title: 'Cancellation & Refund Policy',
-    subtitle: 'Satisfaction guarantee for our personalized styling services.',
+    subtitle: 'Risk-free 30-day money-back guarantee on every plan.',
     content: [
-      'If your first curated lookbook capsule does not meet your expectations, you may request a free restyle with a senior stylist within 7 days.',
-      'Paid subscription fees can be refunded pro-rata within 7 days of activation if no digital capsules have been generated for that billing period.',
+      'Every paid plan is backed by a 30-day money-back guarantee. If you are not happy with the app for any reason, request a refund within 30 days of your first payment and we will refund it in full — no questions asked.',
+      'You can cancel your plan at any time; cancellation stops future billing from the next cycle.',
       'Approved refunds are credited back to your original payment method within 5 to 7 business days.'
     ]
   },
