@@ -16,8 +16,8 @@ import { initLenis, getLenis, setupStackedSections } from './lib/lenis';
 const SECTIONS = [
   { id: 'hero-section', name: 'Hero' },
   { id: 'why-hoy', name: 'Why HOY' },
-  { id: 'plans', name: 'Style Plans' },
   { id: 'guarantee', name: 'Money-Back Guarantee' },
+  { id: 'plans', name: 'Style Plans' },
   { id: 'ready-when-you-are', name: 'Ready When You Are' },
 ];
 
@@ -128,13 +128,14 @@ function MainAppContent() {
         {/* Section 1: Why HOY */}
         <WhyHoy />
 
+        {/* Section 3: Risk-free Money-Back Guarantee */}
+        <MoneyBackGuarantee onOpenPricing={handleOpenPricing} />
+
         {/* Section 2: Style Plans */}
         <StylePlans
           onSelectPlan={(plan) => setPricingModal({ plan })}
         />
 
-        {/* Section 3: Risk-free Money-Back Guarantee */}
-        <MoneyBackGuarantee onOpenPricing={handleOpenPricing} />
 
         {/* Section 4: Ready When You Are CTA */}
         <ReadyWhenYouAre onOpenPricing={handleOpenPricing} />
