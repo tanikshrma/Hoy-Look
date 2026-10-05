@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, ShieldCheck, ArrowRight, ArrowLeft, Phone } from 'lucide-react';
+import { X, Check, ArrowRight, ArrowLeft, Phone } from 'lucide-react';
 import { StylePlan } from '../types';
 import { STYLE_PLANS } from '../data/mockData';
 import { getLenis } from '../lib/lenis';
+import { GuaranteePromiseIcon } from './GuaranteePromiseIcon';
 
 interface PricingModalProps {
   isOpen: boolean;
@@ -149,7 +150,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, initialPlan 
 
             {/* Risk-free guarantee */}
             <div className="mt-3 sm:mt-5 flex items-center justify-center gap-2 rounded-2xl bg-[#F0E8DD] px-3 py-2 sm:py-2.5 text-center">
-              <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#B85D43] shrink-0" />
+              <GuaranteePromiseIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#B85D43] shrink-0" />
               <p className="text-[10.5px] sm:text-[13px] text-[#3D352E] leading-snug">
                 <strong className="text-[#1A1817]">100% guarantee: 30-day money-back guarantee.</strong>{' '}
                 Not loving it? Get a full refund.
@@ -254,7 +255,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, initialPlan 
               </div>
 
               <div className="flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] text-[#8C7A6B] pt-0.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#B85D43]" />
+                <GuaranteePromiseIcon className="w-3.5 h-3.5 text-[#B85D43]" />
                 <span>100% guarantee · 30-day money-back guarantee</span>
               </div>
             </form>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ShieldCheck } from 'lucide-react';
 import { StylePlan } from '../types';
 import { STYLE_PLANS } from '../data/mockData';
+import { GuaranteePromiseIcon } from './GuaranteePromiseIcon';
 
 interface StylePlansProps {
   onSelectPlan: (plan: StylePlan, isAnnual: boolean) => void;
@@ -268,7 +268,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
 
         {/* Risk-free Money-Back Guarantee Strip */}
         <div className="mt-5 sm:mt-10 max-w-3xl mx-auto flex items-center justify-center gap-2.5 sm:gap-3 rounded-full bg-[#181716] text-white px-4 sm:px-6 py-2.5 sm:py-3 shadow-lg">
-          <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5A880] shrink-0" />
+          <GuaranteePromiseIcon className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5A880] shrink-0" />
           <p className="text-[10.5px] sm:text-sm font-sans-body leading-snug text-center">
             <span className="font-bold text-[#C5A880] uppercase tracking-wider">100% guarantee</span>
             <span className="mx-1.5 text-white/40">•</span>
