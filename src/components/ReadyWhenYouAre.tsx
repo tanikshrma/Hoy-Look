@@ -12,7 +12,7 @@ export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenPricing 
       className="relative z-40 min-h-0 md:min-h-[100dvh] w-full py-12 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col justify-center items-center text-center bg-[#BE7A5B] shadow-[0_-20px_50px_rgba(0,0,0,0.18)] m-0 border-0"
     >
       {/* Background HOY Logo White Watermark */}
-      <div
+      {/* <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none z-0 max-w-[180px] sm:max-w-[260px] lg:max-w-[320px] w-full"
         aria-hidden="true"
       >
@@ -25,11 +25,11 @@ export const ReadyWhenYouAre: React.FC<ReadyWhenYouAreProps> = ({ onOpenPricing 
             decoding="async"
             width="320"
             height="96"
-          />
+          /> */}
           {/* Soft background overlay for seamless subtle blend */}
-          <div className="absolute inset-0 bg-[#BE7A5B]/40 pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-[#BE7A5B]/40 pointer-events-none" />
         </div>
-      </div>
+      </div> */}
 
       <div className="max-w-4xl mx-auto z-10 w-full relative">
         {/* Section Heading matching Cinzel style */}

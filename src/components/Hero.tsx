@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
       className="relative z-10 h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-14 xs:pt-16 sm:pt-24 lg:pt-20 pb-2 xs:pb-3 sm:pb-8 overflow-hidden bg-[#FAF9F7]"
     >
       {/* Background HOY Logo Watermark */}
-      <div
+      {/* <div
         className="pointer-events-none absolute left-1/2 lg:left-[48%] top-[56%] lg:top-[45%] -translate-x-1/2 -translate-y-1/2 select-none z-0 max-w-[240px] xs:max-w-[270px] sm:max-w-[320px] w-full opacity-18"
         aria-hidden="true"
       >
@@ -164,7 +164,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
           height="96"
           decoding="async"
         />
-      </div>
+      </div> */}
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full flex-1 flex flex-col justify-between">
         
@@ -206,7 +206,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
 
             {/* Subtitle Description */}
             <p className="mt-1 xs:mt-1.5 sm:mt-4 text-[#5A6478] text-[11px] xs:text-xs sm:text-base font-sans-body font-normal leading-snug sm:leading-relaxed max-w-[290px] xs:max-w-xs sm:max-w-md lg:max-w-lg px-2 sm:px-0">
-              Outfits picked for your body, your wardrobe, and your day — ready in seconds, no guesswork needed.
+              Outfits curated around your body, built from your own closet, and tailored to your day. Just effortless style in seconds.
             </p>
 
           </div>
@@ -387,4 +387,3 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
 };
 
 export default Hero;
-

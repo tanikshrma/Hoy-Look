@@ -1,5 +1,6 @@
 import React from 'react';
-import { ShieldCheck, RotateCcw, BadgeCheck, CalendarX } from 'lucide-react';
+import { RotateCcw, BadgeCheck, CalendarX } from 'lucide-react';
+import guaranteeBadge from '../assets/luxury-guarantee-seal.png';
 
 interface MoneyBackGuaranteeProps {
   onOpenPricing: () => void;
@@ -34,21 +35,21 @@ export const MoneyBackGuarantee: React.FC<MoneyBackGuaranteeProps> = ({ onOpenPr
 
           {/* Seal + Heading */}
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-[#181716] text-[#C5A880] flex flex-col items-center justify-center border-4 border-[#C5A880] shadow-[0_12px_30px_rgba(24,23,22,0.25)] mb-5 sm:mb-7">
-              <ShieldCheck className="w-7 h-7 sm:w-9 sm:h-9 mb-0.5" strokeWidth={1.8} />
-              <span className="font-['Cinzel'] font-bold text-2xl sm:text-3xl leading-none text-white">30</span>
-              <span className="text-[7px] sm:text-[9px] font-bold tracking-[0.12em] sm:tracking-[0.18em] uppercase mt-0.5">Day Guarantee</span>
-            </div>
+            <img
+              src={guaranteeBadge}
+              alt="100% guarantee badge"
+              className="w-32 h-32 sm:w-40 sm:h-40 object-contain mb-5 sm:mb-7"
+            />
 
             <p className="text-[10px] sm:text-xs tracking-[0.25em] font-semibold text-[#B85D43] uppercase mb-1">
-              RISK-FREE • MONEY-BACK GUARANTEE
+              100% MONEY-BACK GUARANTEE
             </p>
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[50px] tracking-tight leading-[1.08] uppercase">
               <span className="block font-['Cinzel'] font-bold text-[#1A1817]">TRY HOY.</span>
-              <span className="block font-['Cinzel'] font-normal tracking-[0.02em] text-[#B68E56]">RISK-FREE.</span>
+              <span className="block font-['Cinzel'] font-normal tracking-[0.02em] text-[#B68E56]">30-DAY GUARANTEE.</span>
             </h2>
             <p className="mt-3 sm:mt-5 text-xs sm:text-base text-[#524B44] font-sans-body leading-relaxed max-w-md">
-              Love your looks or get every rupee back. If HOY isn't for you within 30 days, we'll refund your full payment.
+              Love the outfits in your HOY app or get every rupee back. If you don't love getting dressed with HOY in 30 days, we'll refund your full payment.
             </p>
 
             <button

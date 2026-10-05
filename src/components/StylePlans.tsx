@@ -127,7 +127,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
                 <div
                   key={plan.id}
                   id={`pricing-card-${plan.id}`}
-                  className="relative rounded-[24px] sm:rounded-[30px] bg-[#181716] text-white p-6 sm:p-7 lg:p-8 flex flex-col justify-between border-2 border-[#C5A880]/40 transition-all duration-300 shrink-0 w-[80vw] xs:w-[76vw] sm:w-[320px] md:w-auto snap-center mt-3 md:mt-0 md:-translate-y-2 lg:-translate-y-3 z-10"
+                  className="relative h-full self-stretch rounded-[24px] sm:rounded-[30px] bg-[#181716] text-white p-6 sm:p-7 lg:p-8 flex flex-col justify-between border-2 border-[#C5A880]/40 transition-all duration-300 shrink-0 w-[80vw] xs:w-[76vw] sm:w-[320px] md:w-auto snap-center mt-3 md:mt-0 z-10"
                 >
                   {/* MOST POPULAR Badge Tab on top */}
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#C5A880] text-[#181716] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.22em] px-4 py-1 sm:px-5 sm:py-1 rounded-full z-20 whitespace-nowrap border border-[#FAF9F7]/20">
@@ -189,7 +189,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
               <div
                 key={plan.id}
                 id={`pricing-card-${plan.id}`}
-                className="relative rounded-[24px] sm:rounded-[30px] bg-white text-[#1A1817] p-6 sm:p-7 lg:p-8 flex flex-col justify-between border border-black/5 transition-all duration-300 shrink-0 w-[80vw] xs:w-[76vw] sm:w-[320px] md:w-auto snap-center mt-3 md:mt-0"
+                className="relative h-full self-stretch rounded-[24px] sm:rounded-[30px] bg-white text-[#1A1817] p-6 sm:p-7 lg:p-8 flex flex-col justify-between border border-black/5 transition-all duration-300 shrink-0 w-[80vw] xs:w-[76vw] sm:w-[320px] md:w-auto snap-center mt-3 md:mt-0"
               >
                 <div>
                   {/* Tier Eyebrow */}
@@ -270,7 +270,7 @@ export const StylePlans: React.FC<StylePlansProps> = ({ onSelectPlan }) => {
         <div className="mt-5 sm:mt-10 max-w-3xl mx-auto flex items-center justify-center gap-2.5 sm:gap-3 rounded-full bg-[#181716] text-white px-4 sm:px-6 py-2.5 sm:py-3 shadow-lg">
           <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5A880] shrink-0" />
           <p className="text-[10.5px] sm:text-sm font-sans-body leading-snug text-center">
-            <span className="font-bold text-[#C5A880] uppercase tracking-wider">Risk-free</span>
+            <span className="font-bold text-[#C5A880] uppercase tracking-wider">100% guarantee</span>
             <span className="mx-1.5 text-white/40">•</span>
             30-day money-back guarantee if you don't love the app
           </p>
