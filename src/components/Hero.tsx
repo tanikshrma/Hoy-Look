@@ -8,7 +8,7 @@ import style4 from '../assets/style4.webp';
 import style5 from '../assets/style5.webp';
 
 interface HeroProps {
-  onOpenPricing: () => void;
+  onOpenQuiz: () => void;
   onExploreClick: () => void;
 }
 
@@ -23,7 +23,7 @@ interface OccasionItem {
   offset: { x: number; y: number };
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuiz, onExploreClick }) => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeOccasionId, setActiveOccasionId] = useState<string>('datenight');
   const [exitingOccasionId, setExitingOccasionId] = useState<string | null>(null);
@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
       className="relative z-10 h-[100dvh] max-h-[100dvh] sm:h-auto sm:min-h-[100dvh] lg:h-[100dvh] lg:max-h-[1080px] flex flex-col justify-between pt-14 xs:pt-16 sm:pt-24 lg:pt-20 pb-2 xs:pb-3 sm:pb-8 overflow-hidden bg-[#FAF9F7]"
     >
       {/* Background HOY Logo Watermark */}
-      {/* <div
+      <div
         className="pointer-events-none absolute left-1/2 lg:left-[48%] top-[56%] lg:top-[45%] -translate-x-1/2 -translate-y-1/2 select-none z-0 max-w-[240px] xs:max-w-[270px] sm:max-w-[320px] w-full opacity-18"
         aria-hidden="true"
       >
@@ -164,7 +164,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
           height="96"
           decoding="async"
         />
-      </div> */}
+      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full flex-1 flex flex-col justify-between">
         
@@ -206,7 +206,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
 
             {/* Subtitle Description */}
             <p className="mt-1 xs:mt-1.5 sm:mt-4 text-[#5A6478] text-[11px] xs:text-xs sm:text-base font-sans-body font-normal leading-snug sm:leading-relaxed max-w-[290px] xs:max-w-xs sm:max-w-md lg:max-w-lg px-2 sm:px-0">
-              Outfits curated around your body, built from your own closet, and tailored to your day. Just effortless style in seconds.
+              Outfits picked for your body, your wardrobe, and your day — ready in seconds, no guesswork needed.
             </p>
 
           </div>
@@ -316,14 +316,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
           
           {/* Mobile Layout (< sm): Stacked Centered Buttons with clear hierarchy */}
           <div className="flex flex-col items-center gap-1.5 w-full sm:hidden px-2">
-            {/* GET STYLED NOW CTA Button -> pricing modal */}
+            {/* CREATE MY LOOK CTA Button */}
             <button
               type="button"
               id="hero-create-look-btn-mobile"
-              onClick={onOpenPricing}
+              onClick={onOpenQuiz}
               className="w-full max-w-[280px] xs:max-w-[310px] inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs xs:text-[13px] font-bold tracking-widest uppercase py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body"
             >
-              <span>GET STYLED NOW</span>
+              <span>CREATE MY LOOK</span>
               <span className="text-base leading-none">→</span>
             </button>
 
@@ -349,14 +349,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
 
             {/* Action Cluster */}
             <div className="flex items-center justify-end gap-6 lg:gap-8 ml-auto shrink-0">
-              {/* GET STYLED NOW CTA Button -> pricing modal */}
+              {/* CREATE MY LOOK CTA Button */}
               <button
                 type="button"
                 id="hero-create-look-btn"
-                onClick={onOpenPricing}
+                onClick={onOpenQuiz}
                 className="inline-flex items-center justify-center gap-2 bg-[#C39E6D] hover:bg-[#B38E5D] active:bg-[#A37E4D] text-[#11100F] text-xs sm:text-sm font-bold tracking-widest uppercase px-6 sm:px-8 py-3 sm:py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 cursor-pointer font-sans-body whitespace-nowrap shrink-0"
               >
-                <span>GET STYLED NOW</span>
+                <span>CREATE MY LOOK</span>
                 <span className="text-base leading-none shrink-0">→</span>
               </button>
 
@@ -387,3 +387,4 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPricing, onExploreClick }) => 
 };
 
 export default Hero;
+

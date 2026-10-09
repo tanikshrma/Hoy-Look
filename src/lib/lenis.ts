@@ -44,12 +44,22 @@ export function setupStackedSections(sectionIds: string[]) {
 
   if (elements.length <= 1) return;
 
+  // Sections that transition continuously into the next section without stopping
+  const unpinnedSectionIds = [
+    'ready-when-you-are', // READY WHEN YOU ARE -> Footer
+  ];
+
   elements.forEach((el, index) => {
     // Progressive z-index so subsequent sections smoothly cover previous ones
     el.style.zIndex = String((index + 1) * 10);
 
     // Skip pinning final element (Footer)
     if (index === elements.length - 1) return;
+
+    // Skip pinning continuous paired sections
+    if (unpinnedSectionIds.includes(el.id)) {
+      return;
+    }
 
     // Pin stacked base sections so the next section slides OVER them cleanly
     ScrollTrigger.create({

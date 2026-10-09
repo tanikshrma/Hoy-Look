@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { WhyHoy } from './components/WhyHoy';
+import { HowItWorks } from './components/HowItWorks';
 import { StylePlans } from './components/StylePlans';
-import { MoneyBackGuarantee } from './components/MoneyBackGuarantee';
 import { ReadyWhenYouAre } from './components/ReadyWhenYouAre';
 import { Footer } from './components/Footer';
-import { PricingModal } from './components/PricingModal';
+import { StyleQuizModal } from './components/StyleQuizModal';
+import { PlanModal } from './components/PlanModal';
 import { LegalPolicyModal } from './components/LegalPolicyModal';
 import { OnboardingContainer } from './components/onboarding/OnboardingContainer';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -15,16 +15,15 @@ import { initLenis, getLenis, setupStackedSections } from './lib/lenis';
 
 const SECTIONS = [
   { id: 'hero-section', name: 'Hero' },
-  { id: 'why-hoy', name: 'Why HOY' },
-  { id: 'guarantee', name: 'Money-Back Guarantee' },
+  { id: 'process', name: 'How It Works' },
   { id: 'plans', name: 'Style Plans' },
   { id: 'ready-when-you-are', name: 'Ready When You Are' },
 ];
 
 function MainAppContent() {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  // null = closed; { plan: null } = open on the plan picker; { plan } = open on the details step
-  const [pricingModal, setPricingModal] = useState<{ plan: StylePlan | null } | null>(null);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{ plan: StylePlan; isAnnual: boolean } | null>(null);
   const [activePolicy, setActivePolicy] = useState<string | null>(null);
   const isTransitioningRef = useRef(false);
 
@@ -101,17 +100,15 @@ function MainAppContent() {
     }
   }, []);
 
-  const PLANS_SECTION_INDEX = SECTIONS.findIndex((s) => s.id === 'plans');
-
-  const handleOpenPricing = useCallback(() => setPricingModal({ plan: null }), []);
-  const handleClosePricing = useCallback(() => setPricingModal(null), []);
+  const handleOpenQuiz = () => setIsQuizOpen(true);
+  const handleCloseQuiz = () => setIsQuizOpen(false);
 
   return (
     <div className="min-h-screen bg-[#FAF9F7] text-[#1E1E1E] font-sans-body antialiased flex flex-col selection:bg-[#E2D2BC] selection:text-[#1E1E1E] relative">
       
       {/* Fixed Header */}
       <Header
-        onSignUp={() => scrollToSection(PLANS_SECTION_INDEX)}
+        onOpenQuiz={handleOpenQuiz}
         onNavigateSection={scrollToSection}
         activeSectionIndex={activeSectionIndex}
       />
@@ -121,36 +118,51 @@ function MainAppContent() {
         
         {/* Section 0: Hero Presentation */}
         <Hero
-          onOpenPricing={handleOpenPricing}
+          onOpenQuiz={handleOpenQuiz}
           onExploreClick={() => scrollToSection(1)}
         />
 
-        {/* Section 1: Why HOY */}
-        <WhyHoy />
-
-        {/* Section 3: Risk-free Money-Back Guarantee */}
-        <MoneyBackGuarantee onOpenPricing={handleOpenPricing} />
+        {/* Section 1: How It Works (The Process) */}
+        <HowItWorks />
 
         {/* Section 2: Style Plans */}
         <StylePlans
-          onSelectPlan={(plan) => setPricingModal({ plan })}
+          onSelectPlan={(plan, isAnnual) => setSelectedPlan({ plan, isAnnual })}
         />
 
-
-        {/* Section 4: Ready When You Are CTA */}
-        <ReadyWhenYouAre onOpenPricing={handleOpenPricing} />
+        {/* Section 3: Ready When You Are CTA */}
+        <ReadyWhenYouAre onOpenQuiz={handleOpenQuiz} />
 
         {/* Footer */}
-        <Footer onOpenPolicy={setActivePolicy} />
+        <Footer
+          onOpenQuiz={handleOpenQuiz}
+          onOpenPolicy={setActivePolicy}
+        />
 
       </main>
 
-      {/* Pricing Modal: plan picker -> name & phone */}
-      {pricingModal && (
-        <PricingModal
-          isOpen
-          initialPlan={pricingModal.plan}
-          onClose={handleClosePricing}
+      {/* Interactive Modals */}
+      {isQuizOpen && (
+        <StyleQuizModal
+          isOpen={isQuizOpen}
+          onClose={handleCloseQuiz}
+          onPlanSelect={(chosenPlan) => {
+            handleCloseQuiz();
+            if (chosenPlan) {
+              setSelectedPlan({ plan: chosenPlan, isAnnual: false });
+            } else {
+              scrollToSection(2);
+            }
+          }}
+        />
+      )}
+
+      {selectedPlan && (
+        <PlanModal
+          plan={selectedPlan.plan}
+          isAnnual={selectedPlan.isAnnual}
+          onClose={() => setSelectedPlan(null)}
+          onOpenQuiz={handleOpenQuiz}
         />
       )}
 
@@ -165,7 +177,7 @@ function MainAppContent() {
       {/* Onboarding Flow Container */}
       <OnboardingContainer
         onComplete={() => {
-          scrollToSection(PLANS_SECTION_INDEX);
+          scrollToSection(2); // Scroll to Generated Looks App section
         }}
         onExit={() => {
           setOnboardingStep(0);

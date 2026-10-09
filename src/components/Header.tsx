@@ -3,12 +3,12 @@ import hoyLogo from '../assets/HOY Logo.avif';
 import { getLenis } from '../lib/lenis';
 
 interface HeaderProps {
-  onSignUp: () => void;
+  onOpenQuiz: () => void;
   onNavigateSection?: (index: number) => void;
   activeSectionIndex?: number;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onSignUp, onNavigateSection }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenQuiz, onNavigateSection, activeSectionIndex }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -79,14 +79,14 @@ export const Header: React.FC<HeaderProps> = ({ onSignUp, onNavigateSection }) =
             />
           </a>
 
-          {/* Action: SIGN UP -> pricing section */}
+          {/* Action: SIGN IN */}
           <div className="flex items-center gap-3 relative">
             <button
               id="cta-header-auth-btn"
-              onClick={onSignUp}
+              onClick={onOpenQuiz}
               className="bg-[#111111] hover:bg-[#2B2826] text-white text-xs font-semibold tracking-widest uppercase px-5 sm:px-6 py-2 sm:py-2.5 rounded-full shadow-xs hover:shadow-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center"
             >
-              <span>SIGN UP</span>
+              <span>SIGN IN</span>
             </button>
           </div>
         </div>
